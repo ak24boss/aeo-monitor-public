@@ -56,12 +56,16 @@ MECHANISM = {
 
 @st.cache_resource
 def get_conn():
+    if not DB_PATH.exists():
+        return None
     return duckdb.connect(str(DB_PATH), read_only=True)
 
 
 @st.cache_data(ttl=60)
 def load_run_dates():
     conn = get_conn()
+    if conn is None:
+        return []
     rows = conn.execute(
         "SELECT DISTINCT run_date FROM citation_graph ORDER BY run_date DESC"
     ).fetchall()
@@ -665,7 +669,8 @@ def main():
 
     run_dates = load_run_dates()
     if not run_dates:
-        st.error("No data in database. Run: python __main__.py run")
+        st.info("No pipeline data yet. Run the pipeline locally to populate the database, then redeploy.")
+        st.code("python __main__.py run --skip-trends")
         return
 
     with st.sidebar:
