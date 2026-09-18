@@ -1,0 +1,13 @@
+# Company configuration for AEO Monitor
+# Copy this file to company.yaml and fill in your details.
+# company.yaml is gitignored — it stays local.
+
+company_name: "Acme Corp"
+company_domain: "acme.com"
+contact_email: "you@acme.com"
+
+# Domains you compete with. Used to detect competitor mentions on scraped pages.
+competitors:
+  - competitor1.com
+  - competitor2.com
+  - competitor3.com

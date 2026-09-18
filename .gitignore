@@ -1,0 +1,11 @@
+venv/
+cache/
+out/
+*.db
+.env
+company.yaml
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+.python-version
