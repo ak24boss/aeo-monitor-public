@@ -7,5 +7,7 @@ duckdb>=1.0
 pytrends>=4.9
 python-dotenv>=1.0
 pyyaml>=6.0
+streamlit>=1.35
+plotly>=5.0
 pytest>=8.0
 pytest-cov>=5.0
