@@ -2,7 +2,7 @@
 
 ## Overview
 
-`app.py` (~560 lines) is a 6-page Streamlit dashboard that visualises all DuckDB tables. Run with `make dashboard`. Serves on `localhost:8501`.
+`dashboard.py` (~560 lines) is a 6-page Streamlit dashboard that visualises all DuckDB tables. Run with `make dashboard`. Serves on `localhost:8501`.
 
 **Auth**: None — this is a local tool. Do not expose publicly.
 
@@ -18,7 +18,7 @@ Run summary KPIs: total queries run, URLs in citation graph, source analysis cov
 
 The primary deliverable page. Ranked list of non-Lido URLs by `weighted_score` from `citation_graph`. Filters: domain type selector. Shows: URL, score, domain type, number of queries, top position, and whether Lido is mentioned (from `source_analysis` join).
 
-Color coding matches `DOMAIN_COLORS` in `app.py` (review_platform = indigo, listicle = amber, competitor_owned = red, reddit_forum = orange, vendor_neutral_media = green, lido_owned = blue, other = gray).
+Color coding matches `DOMAIN_COLORS` in `dashboard.py` (review_platform = indigo, listicle = amber, competitor_owned = red, reddit_forum = orange, vendor_neutral_media = green, lido_owned = blue, other = gray).
 
 ### 3. Query Universe
 
@@ -42,4 +42,4 @@ New, dropped, and score-changed URLs between the current run and the previous ru
 
 ## Category display order
 
-Pages that show categories use `FUNNEL_ORDER` in `app.py` (line 33) to sort by funnel stage (commercial → problem-aware → integration → ROI → vertical). New categories added to `queries.yaml` appear at the bottom unless added to `FUNNEL_ORDER`.
+Pages that show categories use `FUNNEL_ORDER` in `dashboard.py` (line 33) to sort by funnel stage (commercial → problem-aware → integration → ROI → vertical). New categories added to `queries.yaml` appear at the bottom unless added to `FUNNEL_ORDER`.

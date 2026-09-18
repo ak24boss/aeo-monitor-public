@@ -25,7 +25,7 @@ run-with-trends:
 	$(PYTHON) __main__.py run
 
 dashboard:
-	venv/bin/streamlit run app.py
+	venv/bin/streamlit run dashboard.py
 
 clean:
 	rm -f out/*.csv out/*.md aeo_monitor.db

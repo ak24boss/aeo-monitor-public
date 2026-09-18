@@ -72,7 +72,7 @@ def test_my_feature(tmp_path):
 ## Platform notes
 
 - `trends.py` uses `signal.alarm()` for a 30-second timeout. This is **Unix/macOS only** — it will not work on Windows. Use `--skip-trends` on Windows or in CI.
-- The Streamlit dashboard (`app.py`) has no authentication. Do not expose it to the public internet without adding auth (e.g., Streamlit secrets-based password gate).
+- The Streamlit dashboard (`dashboard.py`) has no authentication. Do not expose it to the public internet without adding auth (e.g., Streamlit secrets-based password gate).
 - `write_query_opportunities_csv` in `outputs.py` uses DuckDB-specific `FIRST()`/`LAST()` aggregate functions — these are not standard SQL and will not port to SQLite or PostgreSQL without changes.
 
 ## Project structure
@@ -99,7 +99,7 @@ aeo-monitor/
 ├── cache/              # ISO-week response cache (gitignored)
 ├── out/                # Output files (gitignored)
 ├── aeo_monitor.db      # DuckDB database (gitignored)
-├── app.py              # Streamlit dashboard
+├── dashboard.py              # Streamlit dashboard
 ├── __main__.py         # CLI entry point
 ├── cli.py              # 7-phase pipeline orchestrator
 ├── harvest.py          # Phase 1: SERP search

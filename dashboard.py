@@ -1,6 +1,6 @@
 """
 AEO Monitor UI — locally hosted Streamlit dashboard.
-Run: streamlit run app.py
+Run: streamlit run dashboard.py
 """
 from __future__ import annotations
 

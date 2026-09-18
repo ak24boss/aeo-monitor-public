@@ -4,7 +4,7 @@
 
 All pipeline output is persisted to `aeo_monitor.db`, a single-file DuckDB database. The file is gitignored — each installation starts fresh. Rows use `INSERT OR REPLACE` (upsert semantics), so re-running the pipeline on the same day overwrites rather than duplicates.
 
-**DuckDB is single-process only** — do not attempt concurrent writes. The Streamlit dashboard (`app.py`) connects read-only.
+**DuckDB is single-process only** — do not attempt concurrent writes. The Streamlit dashboard (`dashboard.py`) connects read-only.
 
 ## Tables
 

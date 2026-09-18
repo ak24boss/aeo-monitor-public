@@ -97,7 +97,7 @@ python __main__.py run
 ### Streamlit dashboard
 
 ```bash
-venv/bin/streamlit run app.py
+venv/bin/streamlit run dashboard.py
 ```
 
 Opens at `localhost:8501`. Six pages: Overview, Placement Targets, Query Universe, AE Citations, SERP Analysis, Weekly Diff.
