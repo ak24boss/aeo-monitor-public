@@ -2048,39 +2048,80 @@ def _ambrook_css() -> str:
     return """
 <style>
 /* ── Ambrook Heartland Design System ── */
-[data-testid="stAppViewContainer"] { background: #FBF9F4; }
-[data-testid="stHeader"] { background: transparent; }
-[data-testid="stSidebar"] { background: #4B5340 !important; }
-[data-testid="stSidebar"] > div:first-child { background: #4B5340 !important; }
-[data-testid="stSidebar"] * { color: #FBF9F4 !important; }
-[data-testid="stSidebar"] .stSelectbox select { color: #1A1C19 !important; }
-[data-testid="stSidebar"] hr { border-color: rgba(251,249,244,0.25) !important; }
-[data-testid="stSidebar"] small,
-[data-testid="stSidebar"] .stCaption p { color: #DFD9CE !important; }
-h1, h2, h3 { color: #1A1C19; font-weight: 500; letter-spacing: 0.03em; }
-h4, h5, h6 { color: #362C24; font-weight: 500; letter-spacing: 0.02em; }
+
+/* Main canvas — warm parchment */
+[data-testid="stAppViewContainer"],
+[data-testid="stMain"],
+.main { background-color: #FBF9F4 !important; }
+[data-testid="stHeader"] { background: transparent !important; }
+
+/* Ensure all main-area text stays readable on parchment */
+[data-testid="stMain"] p,
+[data-testid="stMain"] span,
+[data-testid="stMain"] label,
+[data-testid="stMain"] li,
+[data-testid="stMain"] td,
+[data-testid="stMain"] div { color: #1A1C19; }
+
+/* Sidebar — olive drab background, parchment text */
+[data-testid="stSidebar"],
+[data-testid="stSidebar"] > div { background-color: #4B5340 !important; }
+
+/* Sidebar: only target visible text nodes, not everything */
+[data-testid="stSidebar"] p,
+[data-testid="stSidebar"] label,
+[data-testid="stSidebar"] span,
+[data-testid="stSidebar"] .stRadio label,
+[data-testid="stSidebar"] [data-testid="stMarkdown"] p { color: #FBF9F4 !important; }
+
+/* Sidebar selectbox — the collapsed value pill */
+[data-testid="stSidebar"] [data-testid="stSelectbox"] div[data-baseweb="select"] span,
+[data-testid="stSidebar"] [data-testid="stSelectbox"] div[data-baseweb="select"] div { color: #1A1C19 !important; }
+
+/* Sidebar dividers */
+[data-testid="stSidebar"] hr { border-color: rgba(251,249,244,0.2) !important; }
+
+/* Headers */
+h1, h2, h3 { color: #1A1C19 !important; font-weight: 500; letter-spacing: 0.03em; }
+h4, h5, h6 { color: #362C24 !important; font-weight: 500; }
+
+/* Metric cards */
 [data-testid="stMetricLabel"] {
     letter-spacing: 0.08em !important;
     text-transform: uppercase !important;
     font-size: 11px !important;
     color: #362C24 !important;
 }
-[data-testid="stMetricValue"] { font-size: 1.4rem !important; color: #1A1C19 !important; }
-.stTabs [data-baseweb="tab-list"] { background: #FBF9F4; border-bottom: 1px solid #DFD9CE; }
+[data-testid="stMetricValue"] { color: #1A1C19 !important; font-size: 1.4rem !important; }
+[data-testid="stMetricDelta"] { color: #4B5340 !important; }
+
+/* Tabs — amber active underline */
+.stTabs [data-baseweb="tab-list"] { background: transparent; border-bottom: 1px solid #DFD9CE; }
+.stTabs [data-baseweb="tab"] { color: #362C24 !important; }
 .stTabs [data-baseweb="tab"][aria-selected="true"] {
     border-bottom: 3px solid #E09A3F !important;
     color: #1A1C19 !important;
     font-weight: 600;
 }
-.stTabs [data-baseweb="tab"] { color: #362C24; }
+
+/* Expanders */
 .stExpander { border: 1px solid #DFD9CE !important; border-radius: 6px; }
-[data-testid="stDataFrame"] thead tr th { background: #DFD9CE !important; color: #1A1C19 !important; }
+
+/* Dataframes */
 [data-testid="stDataFrame"] { border: 1px solid #DFD9CE; border-radius: 4px; }
+
+/* Buttons */
 .stButton > button {
-    background: #E09A3F !important; color: #1A1C19 !important;
-    border: none; font-weight: 600; border-radius: 4px;
+    background: #E09A3F !important;
+    color: #1A1C19 !important;
+    border: none !important;
+    font-weight: 600;
+    border-radius: 4px;
 }
 .stButton > button:hover { background: #c88835 !important; }
+
+/* Code blocks */
+[data-testid="stCode"] { background: #FBF9F4 !important; border: 1px solid #DFD9CE; }
 </style>
 """
 
