@@ -2393,8 +2393,7 @@ def _ambrook_css() -> str:
 [data-testid="stMain"] span,
 [data-testid="stMain"] label,
 [data-testid="stMain"] li,
-[data-testid="stMain"] td,
-[data-testid="stMain"] div { color: #1A1C19; }
+[data-testid="stMain"] td { color: #1A1C19; }
 
 /* Sidebar — olive drab background, parchment text */
 [data-testid="stSidebar"],
