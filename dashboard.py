@@ -227,6 +227,274 @@ def domain_badge(dtype: str) -> str:
     return f'<span style="background:{color};color:white;padding:2px 8px;border-radius:4px;font-size:0.75rem;">{label}</span>'
 
 
+def _tutorial_box(title: str, body: str, action: str = None) -> None:
+    """Render an amber-bordered tutorial callout for guided mode."""
+    action_html = (
+        f'<p style="margin:8px 0 0; color:#E09A3F; font-weight:600;">→ {action}</p>'
+        if action else ""
+    )
+    st.markdown(f"""
+    <div style="border-left:4px solid #E09A3F; background:#fffbf2; border-radius:4px;
+                padding:14px 18px; margin-bottom:16px;">
+      <p style="margin:0 0 6px; font-weight:600; font-size:12px; letter-spacing:0.07em;
+                text-transform:uppercase; color:#362C24;">{title}</p>
+      <p style="margin:0; color:#1A1C19; font-size:14px; line-height:1.65;">{body}</p>
+      {action_html}
+    </div>""", unsafe_allow_html=True)
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Page: Start Here (guided tutorial for non-SEO readers)
+# ──────────────────────────────────────────────────────────────────────────────
+
+def page_start_here(run_date):
+    st.title("📖 Welcome to Ambrook's AI Search Monitor")
+    st.caption(
+        "A guided walkthrough to understand where Ambrook shows up in AI search — "
+        "and where to invest to show up more."
+    )
+
+    probes_df = load_ae_probe_results(run_date)
+    targets = load_placement_targets(run_date)
+    xref_df = load_cross_reference(run_date)
+
+    has_probes = not probes_df.empty
+
+    if has_probes:
+        probes_df = _ensure_probe_cols(probes_df)
+        engines = sorted(probes_df["engine"].unique().tolist())
+        vis_score, _ = _compute_visibility_score(probes_df, engines)
+    else:
+        vis_score = None
+
+    # ── Step 1: Why this matters ──────────────────────────────────────────────
+    _tutorial_box(
+        "Step 1 — Why AI search matters for Ambrook",
+        "Google, ChatGPT, and Perplexity now write answers to searches — not just show links. "
+        'When a farmer searches "best farm accounting software," they often get an AI-written answer '
+        "at the top of the page. If Ambrook isn't named in that answer, you're invisible to that buyer — "
+        "even if you rank #1 in organic search below it. "
+        "This tool tracks exactly where you show up in those AI answers, and where you don't.",
+    )
+
+    st.divider()
+
+    # ── Step 2: Visibility Score ──────────────────────────────────────────────
+    st.subheader("Step 2 — Your AI Visibility Score")
+
+    if not has_probes:
+        st.info("No probe data yet for this run date. Run the pipeline first.")
+    else:
+        score_label = (
+            "Dominant" if vis_score >= 80 else
+            "Category authority" if vis_score >= 50 else
+            "Niche presence" if vis_score >= 20 else
+            "Emerging"
+        )
+        score_guidance = (
+            "Strong presence — focus on maintaining and expanding to new content verticals."
+            if vis_score >= 50 else
+            "Growing — there are specific gaps worth closing with focused content investment."
+            if vis_score >= 20 else
+            "Early stage — significant content investment needed before you'll appear consistently in AI answers."
+        )
+
+        col_score, col_explain = st.columns([1, 2])
+        with col_score:
+            st.metric("AI Visibility Score", f"{vis_score:.0f} / 100")
+            st.caption(f"**{score_label}**")
+        with col_explain:
+            st.markdown(
+                "Think of this like market share, but for AI answers. "
+                "**0** = AI never mentions Ambrook. **100** = mentioned in every relevant query. "
+                "Most companies start between 5–20%. Your benchmark: move up 10 points per quarter.\n\n"
+                f"**Your status:** {score_guidance}"
+            )
+
+    st.divider()
+
+    # ── Step 3: Content category coverage ────────────────────────────────────
+    st.subheader("Step 3 — Which topics are people searching?")
+
+    if has_probes:
+        _tutorial_box(
+            "What this means",
+            f"We tested {len(probes_df)} different ways potential Ambrook customers "
+            "search for farm accounting software — across categories like pricing, competitor comparisons, "
+            "how-to questions, and more. "
+            "The table below shows which content categories you're winning and which need investment.",
+        )
+
+        topic_rows = []
+        for topic in sorted(probes_df["seed_topic"].unique()):
+            if topic == "general":
+                continue
+            t_df = probes_df[probes_df["seed_topic"] == topic]
+            rate = t_df["brand_mentioned"].mean() * 100 if len(t_df) > 0 else 0
+            status = (
+                "✅ Holding steady" if rate >= 30 else
+                "⚠️ Invest here" if rate > 0 else
+                "🔴 Not showing up"
+            )
+            topic_rows.append({
+                "Content category": _TOPIC_LABEL.get(topic, topic),
+                "AI mention rate": f"{rate:.0f}%",
+                "Verdict": status,
+            })
+
+        if topic_rows:
+            st.dataframe(pd.DataFrame(topic_rows), use_container_width=True, hide_index=True)
+    else:
+        st.info("Run the pipeline to see topic coverage.")
+
+    st.divider()
+
+    # ── Step 4: Competitor displacement ──────────────────────────────────────
+    st.subheader("Step 4 — Who does AI recommend instead of Ambrook?")
+
+    comp_counts: dict[str, int] = {}
+    if has_probes:
+        for _, row in probes_df.iterrows():
+            for c in _safe_json_list(row.get("competitors_mentioned", "[]")):
+                if c and isinstance(c, str):
+                    comp_counts[c] = comp_counts.get(c, 0) + 1
+
+    if comp_counts:
+        _tutorial_box(
+            "What to do with this",
+            "These brands appear in AI answers when Ambrook doesn't. AI rewards content that directly "
+            "answers buyer questions — detailed how-to guides, comparison articles, and reviews on "
+            "third-party sites. Study what your top competitor publishes, then write something better.",
+        )
+        top_comps = sorted(comp_counts.items(), key=lambda x: x[1], reverse=True)[:5]
+        comp_df = pd.DataFrame(
+            top_comps,
+            columns=["Competitor domain", "Times AI recommended them instead of Ambrook"],
+        )
+        st.dataframe(comp_df, use_container_width=True, hide_index=True)
+    elif has_probes:
+        st.success(
+            "No competitor displacement detected — Ambrook was mentioned whenever "
+            "AI mentioned anyone in your space."
+        )
+    else:
+        st.info("Run the pipeline to see competitor data.")
+
+    st.divider()
+
+    # ── Step 5: Where to publish ──────────────────────────────────────────────
+    st.subheader("Step 5 — Where should Ambrook publish content?")
+
+    _tutorial_box(
+        "Why this matters",
+        "AI engines don't make up answers — they pull from websites they trust. "
+        "The domains below are the ones AI cites most often when answering questions in the farm "
+        "accounting space. A guest post, case study, or review on any of these sites puts Ambrook "
+        "directly where AI is already looking.",
+        action="Priority: get listed on review sites, contribute to communities, pitch guest posts to general-web sources.",
+    )
+
+    if targets is not None and not targets.empty:
+        targets_list = targets.to_dict("records")
+        type_explain = {
+            "review_platform": "Review site — get listed here",
+            "community": "Online community — answer questions",
+            "competitor_owned": "Competitor site — study their content",
+            "other": "General web — pitch a guest post",
+        }
+        display_rows = []
+        seen_domains: set[str] = set()
+        for t in targets_list:
+            dtype = t.get("domain_type", "other")
+            if "brand" in dtype:
+                continue
+            domain = t.get("domain") or t.get("url", "")
+            if domain in seen_domains:
+                continue
+            seen_domains.add(domain)
+            display_rows.append({
+                "Domain": domain,
+                "Type": type_explain.get(dtype, dtype.replace("_", " ").title()),
+                "AI citation score": f"{t.get('weighted_score', 0):.2f}",
+            })
+            if len(display_rows) >= 5:
+                break
+
+        if display_rows:
+            st.dataframe(pd.DataFrame(display_rows), use_container_width=True, hide_index=True)
+    else:
+        st.info("Run the pipeline to see placement targets.")
+
+    st.divider()
+
+    # ── Step 6: Action plan ───────────────────────────────────────────────────
+    st.subheader("📋 Your Action Plan This Month")
+    st.caption("Three data-driven actions, based on this week's results.")
+
+    actions: list[str] = []
+
+    if has_probes:
+        worst_topic, worst_rate = None, 100.0
+        for topic in probes_df["seed_topic"].unique():
+            if topic == "general":
+                continue
+            rate = probes_df[probes_df["seed_topic"] == topic]["brand_mentioned"].mean() * 100
+            if rate < worst_rate:
+                worst_rate, worst_topic = rate, topic
+        if worst_topic:
+            label = _TOPIC_LABEL.get(worst_topic, worst_topic)
+            actions.append(
+                f"**Write content targeting '{label}'** — this is your biggest gap "
+                f"({worst_rate:.0f}% AI mention rate). Aim for a detailed how-to guide or "
+                "comparison page that directly answers buyer questions in this category."
+            )
+
+        if comp_counts:
+            top_comp = sorted(comp_counts.items(), key=lambda x: x[1], reverse=True)[0][0]
+            actions.append(
+                f"**Audit {top_comp}'s content strategy** — they appear in AI answers most often "
+                "when Ambrook doesn't. Look at their blog, their review site presence, and how they "
+                "answer common buyer questions. Build a content brief to match or exceed their coverage."
+            )
+
+    if targets is not None and not targets.empty:
+        targets_list2 = targets.to_dict("records")
+        non_brand = [t for t in targets_list2 if "brand" not in t.get("domain_type", "")]
+        if non_brand:
+            t0 = non_brand[0]
+            top_domain = t0.get("domain") or t0.get("url", "")
+            top_type = t0.get("domain_type", "other")
+            type_cta = {
+                "review_platform": (
+                    f"Get Ambrook listed on **{top_domain}** — it's a review site AI regularly cites. "
+                    "A verified listing with customer reviews will start getting you quoted in AI answers."
+                ),
+                "community": (
+                    f"Participate in **{top_domain}** — answer questions in your space. "
+                    "AI pulls from community content and will start citing Ambrook's responses."
+                ),
+            }.get(top_type, (
+                f"Pitch a guest post or case study to **{top_domain}** — AI cites it frequently "
+                "in your space, and a bylined piece there will put Ambrook directly in front of AI answers."
+            ))
+            actions.append(type_cta)
+
+    if not actions:
+        actions.append(
+            "Run the pipeline first to generate data-driven recommendations for this company."
+        )
+
+    for i, action in enumerate(actions, 1):
+        st.markdown(f"**{i}.** {action}")
+        st.write("")
+
+    st.divider()
+    st.info(
+        "Ready to dig deeper? Switch to **🔍 Elmo** in the sidebar for the full data breakdown. "
+        "Enable **Tutorial mode** (sidebar checkbox) to see plain-English explanations alongside every chart."
+    )
+
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Page: Overview
 # ──────────────────────────────────────────────────────────────────────────────
@@ -964,6 +1232,15 @@ def page_ai_engine_visibility(run_date):
 
     # ── Tab 1: Overview ────────────────────────────────────────────────────────
     with tab1:
+        if st.session_state.get("tutorial_mode"):
+            _tutorial_box(
+                "What you're looking at",
+                "The Visibility Score is your overall grade across 4 AI assistants (ChatGPT, Perplexity, Gemini, Google). "
+                "Share of Voice is the percentage of test queries where Ambrook was mentioned. "
+                "Coverage tells you how many different search styles you're winning. "
+                "The vertical breakdown below shows which content categories you're strong in vs. where you're invisible.",
+                action="A score below 30% means AI rarely recommends you — prioritize content creation over ads right now.",
+            )
         # Vertical performance summary — most useful top-of-page view
         st.subheader("Visibility by Vertical")
         vert_rows = []
@@ -1154,6 +1431,17 @@ def page_ai_engine_visibility(run_date):
 
     # ── Tab 2: Prompt Heatmap ──────────────────────────────────────────────────
     with tab2:
+        if st.session_state.get("tutorial_mode"):
+            _tutorial_box(
+                "How to read this heatmap",
+                "Each row is a 'search style' — the way someone might phrase a question (e.g., casual, "
+                "price-focused, comparing competitors). Each column is an AI assistant. "
+                "A dark cell = Ambrook was mentioned in that style on that platform. "
+                "A light or empty cell = you were invisible. "
+                "Filter by vertical (content category) to drill into specific buyer scenarios.",
+                action="Find the rows that are all light — those are your content gaps. "
+                "Write articles that directly answer those questions in that style.",
+            )
         st.subheader("Brand Mention Rate by Prompt Type × Engine")
         st.caption(
             "Each cell = % of probes in that type where the engine mentioned "
@@ -1267,6 +1555,18 @@ def page_ai_engine_visibility(run_date):
 
     # ── Tab 3: Citation Space ──────────────────────────────────────────────────
     with tab3:
+        if st.session_state.get("tutorial_mode"):
+            _tutorial_box(
+                "What 'citations' are",
+                "When AI writes an answer, it pulls from websites it trusts. Those websites are 'citations.' "
+                "The domains listed here are the ones AI cites most often when answering questions in the "
+                "farm accounting space. If your content isn't on these sites, AI can't quote you. "
+                "Green = review sites (priority for getting listed). "
+                "Red = competitor sites (study their content). "
+                "Blue = community forums (answer questions there).",
+                action="Aim to appear on the top 5 non-competitor domains. "
+                "Review sites and general-web sources are your fastest path to AI citations.",
+            )
         # Build domain aggregates once
         domain_to_types: dict[str, set] = {}
         domain_to_count: dict[str, int] = {}
@@ -1391,6 +1691,18 @@ def page_ai_engine_visibility(run_date):
 
     # ── Tab 4: Competitive Benchmark ───────────────────────────────────────────
     with tab4:
+        if st.session_state.get("tutorial_mode"):
+            _tutorial_box(
+                "Who's winning the attention you want",
+                "This shows which competitors AI recommends when it doesn't mention Ambrook. "
+                "'Displacement' means a competitor appeared in an AI answer for a query where "
+                "Ambrook should have been relevant but wasn't mentioned. "
+                "A high displacement count means that competitor is consistently winning buyer "
+                "attention you should be capturing.",
+                action="Pick the top competitor and audit their content: "
+                "What's their blog strategy? Do they have review site profiles? "
+                "Do they run comparison articles? Build a content brief to match or exceed them.",
+            )
         st.subheader("Competitor Displacement Analysis")
         st.caption(
             f"Probes where a competitor is mentioned but {COMPANY_NAME} is not = displacement. "
@@ -1586,6 +1898,16 @@ def page_ai_engine_visibility(run_date):
 
     # ── Tab 5: Opportunities ────────────────────────────────────────────────────
     with tab5:
+        if st.session_state.get("tutorial_mode"):
+            _tutorial_box(
+                "Where to focus first",
+                "These are the specific queries and content types where Ambrook has the best chance "
+                "of breaking into AI answers — either because competitors are weak there, or because "
+                "the query style plays to your strengths. Each opportunity maps to a content format "
+                "(how-to post, comparison guide, landing page, etc.).",
+                action="Start with the top 3 items. Each one should become a piece of content "
+                "targeting that exact buyer question. A detailed, direct answer is what AI rewards.",
+            )
         # ── "This week" action brief ──────────────────────────────────────────
         st.subheader("This Week's Playbook")
 
@@ -1790,6 +2112,17 @@ def page_ai_engine_visibility(run_date):
 
     # ── Tab 6: Sponsored Ads ───────────────────────────────────────────────────
     with tab6:
+        if st.session_state.get("tutorial_mode"):
+            _tutorial_box(
+                "What paid search has to do with AI",
+                "When Google shows an AI-written answer, it sometimes also displays paid ads alongside it. "
+                "This tab shows which companies are paying to appear next to AI answers in the farm "
+                "accounting space. If a competitor is bidding on your keywords here, buyers who search "
+                "for farm accounting software see them first — even if you win the AI answer itself. "
+                "Amber = Ambrook is running its own ads (good). Red = a competitor is bidding on your terms.",
+                action="If a competitor appears in 3+ of your queries, consider matching their spend on those terms. "
+                "If Ambrook is already appearing — that spend is working, keep it running.",
+            )
         st.subheader("Sponsored Ad Intelligence")
         st.caption(
             "Domains appearing in Google paid ad slots for each probe query. "
@@ -2303,9 +2636,16 @@ def main():
 
         page = st.radio(
             "View",
-            ["Overview", "Placement Targets", "Query Universe", "AE Citations",
-             "SERP Analysis", "SEO Ranks", "Weekly Diff", "🔍 Elmo"],
+            ["📖 Start Here", "Overview", "Placement Targets", "Query Universe",
+             "AE Citations", "SERP Analysis", "SEO Ranks", "Weekly Diff", "🔍 Elmo"],
             label_visibility="collapsed",
+        )
+
+        st.sidebar.checkbox(
+            "📖 Tutorial mode",
+            value=False,
+            key="tutorial_mode",
+            help="Show plain-English explanations alongside every chart",
         )
 
         st.divider()
@@ -2327,7 +2667,9 @@ def main():
                 use_container_width=True,
             )
 
-    if page == "Overview":
+    if page == "📖 Start Here":
+        page_start_here(run_date)
+    elif page == "Overview":
         page_overview(run_date)
     elif page == "Placement Targets":
         page_placement_targets(run_date)
