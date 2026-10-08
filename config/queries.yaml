@@ -1,734 +1,313 @@
 categories:
 
-  # ─── Existing tracked queries (27) ───────────────────────────────────────
+  # ─── Core RFP/DDQ Automation ──────────────────────────────────────────────
   commercial:
-    - text: "best bank statement converter"
+    - text: "best RFP software 2024"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "best RFP response software"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "AI RFP response tool"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "RFP automation software"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "best DDQ software for asset managers"
       intent: "tool discovery"
       vertical: "finance"
       priority: high
-    - text: "invoice OCR software"
+    - text: "AI due diligence questionnaire software"
       intent: "tool discovery"
       vertical: "finance"
       priority: high
-    - text: "convert PDF to Excel for accounting"
+    - text: "automate RFP responses with AI"
+      intent: "use case"
+      vertical: "general"
+      priority: high
+    - text: "AI proposal writing software"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+
+  # ─── Financial Services Vertical ──────────────────────────────────────────
+  vertical_finance:
+    - text: "DDQ automation for investment managers"
+      intent: "tool discovery"
+      vertical: "finance"
+      priority: high
+    - text: "due diligence questionnaire software hedge fund"
+      intent: "tool discovery"
+      vertical: "finance"
+      priority: high
+    - text: "AI tool for investor DDQ responses"
+      intent: "tool discovery"
+      vertical: "finance"
+      priority: high
+    - text: "automate DDQ responses asset management"
+      intent: "workflow"
+      vertical: "finance"
+      priority: high
+    - text: "DDQ platform for private equity"
+      intent: "tool discovery"
+      vertical: "finance"
+      priority: high
+    - text: "automate investor questionnaire responses"
+      intent: "workflow"
+      vertical: "finance"
+      priority: high
+    - text: "RFP software for financial services"
+      intent: "tool discovery"
+      vertical: "finance"
+      priority: high
+    - text: "best DDQ tool for alternative investment managers"
+      intent: "tool discovery"
+      vertical: "finance"
+      priority: high
+    - text: "AI for completing pension fund questionnaires"
       intent: "use case"
       vertical: "finance"
+      priority: medium
+    - text: "automate RFP responses investment consultant"
+      intent: "workflow"
+      vertical: "finance"
       priority: high
-    - text: "document data extraction tool for CPA firms"
+
+  # ─── Enterprise / General RFP ─────────────────────────────────────────────
+  vertical_enterprise:
+    - text: "best enterprise RFP software"
       intent: "tool discovery"
-      vertical: "accounting"
+      vertical: "general"
       priority: high
-    - text: "OCR for handwritten documents"
+    - text: "RFP response management software"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "AI tool to answer RFPs faster"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "RFP content library software"
       intent: "tool discovery"
       vertical: "general"
       priority: medium
-    - text: "best PDF parser for financial statements"
+    - text: "security questionnaire automation software"
       intent: "tool discovery"
-      vertical: "finance"
+      vertical: "general"
       priority: high
-    - text: "automated invoice data entry software"
+    - text: "automate security questionnaire responses"
+      intent: "workflow"
+      vertical: "general"
+      priority: high
+    - text: "vendor security assessment automation"
       intent: "tool discovery"
-      vertical: "finance"
+      vertical: "general"
+      priority: medium
+    - text: "RFI RFP response software for sales teams"
+      intent: "tool discovery"
+      vertical: "general"
       priority: high
 
-  vertical:
-    - text: "extract data from EOBs to spreadsheet"
-      intent: "use case"
-      vertical: "healthcare"
-      priority: medium
-    - text: "CMS 1500 data extraction"
-      intent: "use case"
-      vertical: "healthcare"
-      priority: medium
-    - text: "bill of lading OCR software"
-      intent: "tool discovery"
-      vertical: "logistics"
-      priority: medium
-    - text: "lease abstraction software"
-      intent: "tool discovery"
-      vertical: "real_estate"
-      priority: medium
-    - text: "K-1 data extraction"
-      intent: "use case"
-      vertical: "accounting"
+  # ─── Problem-Aware / Pain-Led ──────────────────────────────────────────────
+  problem_aware:
+    - text: "how to respond to RFPs faster"
+      intent: "workflow"
+      vertical: "general"
       priority: high
-    - text: "purchase order OCR for ERP"
-      intent: "use case"
+    - text: "how to speed up RFP process"
+      intent: "workflow"
+      vertical: "general"
+      priority: high
+    - text: "reduce time answering DDQs"
+      intent: "workflow"
       vertical: "finance"
+      priority: high
+    - text: "RFP response taking too long"
+      intent: "workflow"
+      vertical: "general"
       priority: medium
-    - text: "claims document extraction insurance"
-      intent: "tool discovery"
-      vertical: "insurance"
+    - text: "how to win more RFPs with AI"
+      intent: "workflow"
+      vertical: "general"
       priority: medium
+    - text: "how hedge funds answer investor due diligence questionnaires"
+      intent: "workflow"
+      vertical: "finance"
+      priority: high
+    - text: "best way to manage DDQ responses investment firm"
+      intent: "workflow"
+      vertical: "finance"
+      priority: high
+    - text: "AI to draft proposal and RFP answers"
+      intent: "use case"
+      vertical: "general"
+      priority: high
+    - text: "how to use AI for RFP responses"
+      intent: "workflow"
+      vertical: "general"
+      priority: high
+    - text: "replace manual RFP answering with AI"
+      intent: "workflow"
+      vertical: "general"
+      priority: high
 
+  # ─── Competitor Alternatives ──────────────────────────────────────────────
   alternatives:
-    - text: "DataSnipper alternatives"
+    - text: "Responsive alternatives"
       intent: "competitor displacement"
       vertical: "general"
       priority: high
-    - text: "Rossum vs ABBYY"
-      intent: "comparison"
-      vertical: "general"
-      priority: high
-    - text: "best alternative to manual data entry accounting"
-      intent: "competitor displacement"
-      vertical: "accounting"
-      priority: high
-    - text: "Docsumo vs Nanonets"
-      intent: "comparison"
-      vertical: "general"
-      priority: high
-    - text: "Nanonets alternatives"
+    - text: "Loopio alternatives"
       intent: "competitor displacement"
       vertical: "general"
       priority: high
-    - text: "Parseur alternatives"
+    - text: "RFPIO alternatives"
+      intent: "competitor displacement"
+      vertical: "general"
+      priority: high
+    - text: "Qvidian alternatives"
+      intent: "competitor displacement"
+      vertical: "general"
+      priority: high
+    - text: "RocketDocs alternatives"
       intent: "competitor displacement"
       vertical: "general"
       priority: medium
-    - text: "Reducto AI alternatives"
+    - text: "Diligence Vault alternatives"
       intent: "competitor displacement"
-      vertical: "general"
-      priority: medium
-
-  long_tail:
-    - text: "how do I get bank statement data into QuickBooks"
-      intent: "workflow"
-      vertical: "finance"
-      priority: medium
-    - text: "fastest way to key client documents into UltraTax"
-      intent: "workflow"
-      vertical: "accounting"
-      priority: high
-    - text: "how to extract line items from scanned invoices"
-      intent: "workflow"
-      vertical: "finance"
-      priority: medium
-    - text: "reduce AP data entry without hiring"
-      intent: "workflow"
-      vertical: "finance"
-      priority: medium
-    - text: "automate data extraction from PDFs accounting"
-      intent: "use case"
-      vertical: "accounting"
-      priority: medium
-    - text: "document extraction AI for accountants"
-      intent: "tool discovery"
-      vertical: "accounting"
-      priority: high
-
-  # ─── Problem-Aware / Top-of-Funnel ───────────────────────────────────────
-  problem_aware_accounting:
-    - text: "automate trial balance import from poorly formatted client data"
-      intent: "workflow"
-      vertical: "accounting"
-      priority: medium
-    - text: "reduce time entering bank and credit card statements into QuickBooks Desktop"
-      intent: "workflow"
-      vertical: "accounting"
-      priority: medium
-    - text: "automate bookkeeping data entry so staff can do advisory work"
-      intent: "workflow"
-      vertical: "accounting"
-      priority: medium
-    - text: "AI tool to read poorly formatted client financial data"
-      intent: "tool discovery"
-      vertical: "accounting"
-      priority: medium
-    - text: "build vs buy data ingestion pipeline for accounting firm"
-      intent: "build_vs_buy"
-      vertical: "accounting"
-      priority: high
-    - text: "automate bank statement extraction into QuickBooks"
-      intent: "workflow"
-      vertical: "accounting"
-      priority: medium
-    - text: "extract complex investment statements into Excel automatically"
-      intent: "workflow"
-      vertical: "accounting"
-      priority: medium
-    - text: "automate financial statement data entry for accounting firms"
-      intent: "workflow"
-      vertical: "accounting"
-      priority: medium
-
-  problem_aware_legal:
-    - text: "automate USCIS G-28 I-130 form filling from client documents"
-      intent: "workflow"
-      vertical: "legal"
-      priority: high
-    - text: "how to auto-fill immigration forms from intake questionnaires and documents"
-      intent: "workflow"
-      vertical: "legal"
-      priority: high
-    - text: "software to organize immigration case documents automatically"
-      intent: "tool discovery"
-      vertical: "legal"
-      priority: medium
-    - text: "AR-1 arbitration filing automation no-fault insurance"
-      intent: "workflow"
-      vertical: "legal"
-      priority: medium
-    - text: "automate country condition report research for immigration cases"
-      intent: "workflow"
-      vertical: "legal"
-      priority: low
-    - text: "Docketwise alternative for data extraction"
-      intent: "competitor displacement"
-      vertical: "legal"
-      priority: high
-    - text: "does Docketwise auto-fill forms from documents"
-      intent: "comparison"
-      vertical: "legal"
-      priority: high
-    - text: "automate medical record data extraction for litigation"
-      intent: "workflow"
-      vertical: "legal"
-      priority: medium
-    - text: "automate trial index creation from large case files"
-      intent: "workflow"
-      vertical: "legal"
-      priority: medium
-    - text: "extract Bates stamp numbers from legal documents"
-      intent: "workflow"
-      vertical: "legal"
-      priority: low
-
-  problem_aware_healthcare:
-    - text: "automate EOB extraction for multiple payers"
-      intent: "workflow"
-      vertical: "healthcare"
-      priority: high
-    - text: "reconcile payments against POBs automatically"
-      intent: "workflow"
-      vertical: "healthcare"
-      priority: medium
-    - text: "VLOOKUP alternative for payment reconciliation"
-      intent: "tool discovery"
-      vertical: "healthcare"
-      priority: medium
-    - text: "automate CMS 1500 and consent form extraction"
-      intent: "workflow"
-      vertical: "healthcare"
-      priority: high
-    - text: "reduce manual data entry during EHR system migration"
-      intent: "workflow"
-      vertical: "healthcare"
-      priority: medium
-    - text: "automate patient data migration between EHR systems"
-      intent: "workflow"
-      vertical: "healthcare"
-      priority: medium
-    - text: "automate payer forms with changing rules by state"
-      intent: "workflow"
-      vertical: "healthcare"
-      priority: medium
-    - text: "automate medical billing data entry from provider spreadsheets"
-      intent: "workflow"
-      vertical: "healthcare"
-      priority: medium
-    - text: "automate underpayment detection across insurance claims"
-      intent: "workflow"
-      vertical: "healthcare"
-      priority: medium
-
-  problem_aware_insurance:
-    - text: "alternative to Power Query for data reconciliation"
-      intent: "tool discovery"
-      vertical: "insurance"
-      priority: medium
-    - text: "automate matching extracted data against internal entity lists"
-      intent: "workflow"
-      vertical: "insurance"
-      priority: medium
-    - text: "automate entity list reconciliation insurance"
-      intent: "workflow"
-      vertical: "insurance"
-      priority: medium
-    - text: "automate carrier commission statement extraction"
-      intent: "workflow"
-      vertical: "insurance"
-      priority: high
-    - text: "automate direct bill statement reconciliation insurance"
-      intent: "workflow"
-      vertical: "insurance"
-      priority: high
-
-  problem_aware_construction:
-    - text: "automate AP invoice data entry construction company"
-      intent: "workflow"
-      vertical: "construction"
-      priority: medium
-    - text: "automate AP invoice matching to prevent duplicate payments"
-      intent: "workflow"
-      vertical: "construction"
-      priority: medium
-    - text: "how to scale AP processing 3-4x without adding headcount"
-      intent: "workflow"
-      vertical: "construction"
-      priority: high
-    - text: "automate bank statement data extraction across multiple bank formats"
-      intent: "workflow"
-      vertical: "construction"
-      priority: medium
-    - text: "automate duplicate invoice detection in BRICS"
-      intent: "workflow"
-      vertical: "construction"
-      priority: medium
-    - text: "automate vendor invoice data entry into BRICS ERP"
-      intent: "workflow"
-      vertical: "construction"
-      priority: medium
-
-  problem_aware_logistics:
-    - text: "automate carrier invoice pro-number lookup in TMS"
-      intent: "workflow"
-      vertical: "logistics"
-      priority: medium
-    - text: "match invoice PO BOL and receiving report automatically"
-      intent: "workflow"
-      vertical: "logistics"
-      priority: high
-    - text: "automate 3-way match invoice PO BOL receiving report"
-      intent: "workflow"
-      vertical: "logistics"
-      priority: high
-    - text: "automate 4-way match invoice PO BOL receiving report"
-      intent: "workflow"
-      vertical: "logistics"
-      priority: high
-    - text: "automate NetSuite purchase order data entry"
-      intent: "workflow"
-      vertical: "logistics"
-      priority: medium
-    - text: "extract carrier invoices with different formats automatically"
-      intent: "workflow"
-      vertical: "logistics"
-      priority: medium
-
-  # ─── Solution-Aware / Category Queries ───────────────────────────────────
-  solution_aware:
-    - text: "best intelligent document processing IDP tool for accounting firms"
-      intent: "tool discovery"
-      vertical: "accounting"
-      priority: high
-    - text: "best intelligent document processing tool for law firms"
-      intent: "tool discovery"
-      vertical: "legal"
-      priority: high
-    - text: "best IDP tool for medical billing"
-      intent: "tool discovery"
-      vertical: "healthcare"
-      priority: high
-    - text: "best IDP tool for AP automation"
-      intent: "tool discovery"
       vertical: "finance"
       priority: high
-    - text: "AI data extraction tool for handwriting and scanned documents"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: medium
-    - text: "spreadsheet-native document automation tool"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: high
-    - text: "AI tool to extract data from documents into Excel or Google Sheets"
-      intent: "use case"
-      vertical: "general"
-      priority: high
-    - text: "self-serve OCR and AI extraction without engineering integration"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: high
-    - text: "no-code IDP tool for non-technical teams"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: high
-    - text: "PDF form filler tool for deterministic template merge"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: medium
-    - text: "AI fuzzy matching tool for vendor reconciliation"
-      intent: "tool discovery"
+    - text: "Dasseti alternatives"
+      intent: "competitor displacement"
       vertical: "finance"
-      priority: medium
-    - text: "document classifier to split and organize PDFs automatically"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: medium
-    - text: "AI tool to process large multi-document PDF files"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: medium
-    - text: "automated document extraction and reconciliation software"
-      intent: "tool discovery"
+      priority: high
+    - text: "best alternative to Loopio for financial services"
+      intent: "competitor displacement"
+      vertical: "finance"
+      priority: high
+    - text: "best alternative to Responsive RFP software"
+      intent: "competitor displacement"
       vertical: "general"
       priority: high
-    - text: "AI document workflow tool with human review"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: medium
+    - text: "AI alternative to Diligence Vault"
+      intent: "competitor displacement"
+      vertical: "finance"
+      priority: high
 
-  # ─── Vendor-Comparison / Highest Commercial Intent ───────────────────────
+  # ─── Head-to-Head Comparisons ─────────────────────────────────────────────
   competitor_comparison:
-    - text: "DataSnipper alternative for document data extraction not just tick and tie"
-      intent: "competitor displacement"
-      vertical: "general"
-      priority: high
-    - text: "DataSnipper vs Lido"
+    - text: "Responsive vs Loopio"
       intent: "comparison"
       vertical: "general"
       priority: high
-    - text: "Canopy data extraction"
-      intent: "competitor displacement"
-      vertical: "accounting"
-      priority: high
-    - text: "Canopy alternative for document extraction"
-      intent: "competitor displacement"
-      vertical: "accounting"
-      priority: high
-    - text: "Ocrolus alternative no engineering integration"
-      intent: "competitor displacement"
-      vertical: "finance"
-      priority: high
-    - text: "Ocrolus alternative for self-serve document extraction"
-      intent: "competitor displacement"
-      vertical: "finance"
-      priority: high
-    - text: "Ocrolus vs Lido"
-      intent: "comparison"
-      vertical: "finance"
-      priority: high
-    - text: "Nanonets alternative for handwriting and scanned documents"
-      intent: "competitor displacement"
-      vertical: "general"
-      priority: high
-    - text: "Nanonets alternative for complex documents"
-      intent: "competitor displacement"
-      vertical: "general"
-      priority: high
-    - text: "Nanonets vs Lido"
+    - text: "Loopio vs RFPIO"
       intent: "comparison"
       vertical: "general"
       priority: high
-    - text: "Docketwise alternative for USCIS form auto-fill"
-      intent: "competitor displacement"
-      vertical: "legal"
-      priority: high
-    - text: "Lido vs Docketwise for immigration document extraction"
+    - text: "Responsive vs Qvidian"
       intent: "comparison"
-      vertical: "legal"
+      vertical: "general"
       priority: high
-    - text: "best IDP tool for law firms"
-      intent: "tool discovery"
-      vertical: "legal"
-      priority: high
-    - text: "best document extraction tool for medical billing"
-      intent: "tool discovery"
-      vertical: "healthcare"
-      priority: high
-    - text: "best document automation tool for AP teams"
-      intent: "tool discovery"
+    - text: "Diligence Vault vs Dasseti"
+      intent: "comparison"
       vertical: "finance"
       priority: high
-    - text: "AI document extraction tool vs custom-built pipeline"
-      intent: "build_vs_buy"
+    - text: "best AI RFP tool vs Loopio"
+      intent: "comparison"
       vertical: "general"
       priority: high
-    - text: "build vs buy document extraction software"
-      intent: "build_vs_buy"
+    - text: "AI RFP software comparison 2024"
+      intent: "comparison"
       vertical: "general"
       priority: high
-    - text: "OCR API vs no-code document extraction platform"
-      intent: "build_vs_buy"
+    - text: "RFP software pricing comparison"
+      intent: "comparison"
+      vertical: "general"
+      priority: medium
+    - text: "Loopio vs AI native RFP tool"
+      intent: "comparison"
+      vertical: "general"
+      priority: high
+    - text: "ChatGPT for RFP responses vs dedicated software"
+      intent: "comparison"
+      vertical: "general"
+      priority: high
+    - text: "Responsive vs AI RFP software"
+      intent: "comparison"
       vertical: "general"
       priority: high
 
-  # ─── Integration & Technical-Fit Queries ─────────────────────────────────
-  integration_erp:
-    - text: "AI document extraction integration with NetSuite"
-      intent: "integration"
-      vertical: "finance"
-      priority: high
-    - text: "automate purchase order entry into NetSuite from PDF"
-      intent: "workflow"
-      vertical: "logistics"
-      priority: high
-    - text: "extract invoice data into NetSuite without manual entry"
-      intent: "workflow"
-      vertical: "finance"
-      priority: high
-    - text: "document extraction integration with QuickBooks Desktop"
-      intent: "integration"
-      vertical: "accounting"
-      priority: high
-    - text: "automate bank statement data entry into QuickBooks Desktop"
-      intent: "workflow"
-      vertical: "accounting"
-      priority: high
-    - text: "AI data extraction integration with QuickBooks Online"
-      intent: "integration"
-      vertical: "accounting"
-      priority: high
-    - text: "document extraction integration with Acumatica"
-      intent: "integration"
-      vertical: "finance"
-      priority: medium
-    - text: "extract PDF data into ERP via API"
-      intent: "integration"
+  # ─── AI vs Legacy RFP Tools ───────────────────────────────────────────────
+  ai_rfp:
+    - text: "AI native RFP software"
+      intent: "tool discovery"
       vertical: "general"
-      priority: medium
-    - text: "extract document data to CSV for ERP import"
+      priority: high
+    - text: "GPT for RFP responses"
+      intent: "use case"
+      vertical: "general"
+      priority: high
+    - text: "can ChatGPT write RFP responses"
       intent: "use case"
       vertical: "general"
       priority: medium
+    - text: "AI that reads RFP documents and drafts answers"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "LLM for proposal writing"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: medium
+    - text: "AI for government RFP responses"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: medium
+    - text: "AI that references past proposals to answer new RFPs"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "AI knowledge base for RFP content library"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
 
-  integration_spreadsheet:
-    - text: "extract PDF data directly into Excel"
-      intent: "use case"
-      vertical: "general"
-      priority: high
-    - text: "extract PDF data directly into Google Sheets"
-      intent: "use case"
-      vertical: "general"
-      priority: high
-    - text: "AI document extraction with spreadsheet output"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: high
-    - text: "automate reconciliation in Excel with fuzzy matching"
-      intent: "workflow"
-      vertical: "finance"
-      priority: medium
-    - text: "replace VLOOKUP with AI fuzzy matching"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: medium
-
-  integration_api:
-    - text: "document extraction API vs no-code platform"
-      intent: "build_vs_buy"
-      vertical: "general"
-      priority: high
-    - text: "self-serve document extraction without API integration"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: high
-    - text: "AI document processing tool with API and CSV export"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: medium
-    - text: "document automation software non-technical users can configure"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: high
-    - text: "AI extraction tool that runs unattended after setup"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: medium
-    - text: "document extraction platform with webhook support"
-      intent: "integration"
-      vertical: "general"
-      priority: medium
-
-  integration_reliability:
-    - text: "AI OCR that handles changing document formats"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: high
-    - text: "document extraction tool for handwriting"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: medium
-    - text: "OCR for scanned low quality PDFs"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: medium
-    - text: "extract data from complex investment statements"
-      intent: "use case"
-      vertical: "accounting"
-      priority: high
-    - text: "AI document extraction with format drift"
-      intent: "tool discovery"
-      vertical: "general"
-      priority: medium
-    - text: "extract tables from 500 page PDFs automatically"
-      intent: "use case"
-      vertical: "general"
-      priority: medium
-    - text: "process 100 PDFs at once data extraction"
-      intent: "use case"
-      vertical: "general"
-      priority: medium
-
-  # ─── ROI, Scaling & Build-vs-Buy ─────────────────────────────────────────
+  # ─── Build vs Buy / ROI ───────────────────────────────────────────────────
   roi_build_vs_buy:
-    - text: "cost of manual document data entry vs automation"
+    - text: "cost of manual RFP response process"
       intent: "roi"
       vertical: "general"
       priority: high
-    - text: "how much time can AP automation save"
-      intent: "roi"
-      vertical: "finance"
-      priority: high
-    - text: "automate AP instead of hiring additional staff"
-      intent: "workflow"
-      vertical: "finance"
-      priority: high
-    - text: "scale document processing without adding headcount"
-      intent: "workflow"
-      vertical: "general"
-      priority: high
-    - text: "intelligent document processing pricing"
+    - text: "how much time does RFP response take"
       intent: "roi"
       vertical: "general"
       priority: high
-    - text: "build vs buy OCR document extraction"
-      intent: "build_vs_buy"
+    - text: "RFP automation ROI"
+      intent: "roi"
       vertical: "general"
       priority: high
-    - text: "cost to build internal document extraction pipeline"
-      intent: "build_vs_buy"
+    - text: "win rate improvement with RFP software"
+      intent: "roi"
       vertical: "general"
-      priority: high
-    - text: "buy vs build AI document processing"
-      intent: "build_vs_buy"
-      vertical: "general"
-      priority: high
-    - text: "document automation for private equity portfolio companies"
-      intent: "use case"
+      priority: medium
+    - text: "DDQ process efficiency for asset managers"
+      intent: "roi"
       vertical: "finance"
-      priority: medium
-    - text: "standardize AP automation across acquired companies"
-      intent: "use case"
+      priority: high
+    - text: "time savings from DDQ automation investment management"
+      intent: "roi"
       vertical: "finance"
-      priority: medium
-
-  # ─── High-Intent Vertical + Capability Combinations ──────────────────────
-  vertical_accounting:
-    - text: "AI document extraction for CPA firms"
-      intent: "tool discovery"
-      vertical: "accounting"
       priority: high
-    - text: "bank statement extraction software for accountants"
-      intent: "tool discovery"
-      vertical: "accounting"
+    - text: "build vs buy RFP response system"
+      intent: "build_vs_buy"
+      vertical: "general"
       priority: high
-    - text: "investment statement extraction software accounting"
-      intent: "tool discovery"
-      vertical: "accounting"
-      priority: high
-    - text: "automate client document data entry accounting firm"
-      intent: "workflow"
-      vertical: "accounting"
-      priority: high
-    - text: "document automation for bookkeeping firms"
-      intent: "tool discovery"
-      vertical: "accounting"
-      priority: medium
-
-  vertical_legal:
-    - text: "AI document automation for law firms"
-      intent: "tool discovery"
-      vertical: "legal"
-      priority: high
-    - text: "immigration document extraction software"
-      intent: "tool discovery"
-      vertical: "legal"
-      priority: high
-    - text: "USCIS form automation from client documents"
-      intent: "workflow"
-      vertical: "legal"
-      priority: high
-    - text: "medical record extraction software for law firms"
-      intent: "tool discovery"
-      vertical: "legal"
-      priority: medium
-    - text: "trial index automation software"
-      intent: "tool discovery"
-      vertical: "legal"
-      priority: medium
-    - text: "legal document classification and extraction AI"
-      intent: "tool discovery"
-      vertical: "legal"
-      priority: medium
-
-  vertical_healthcare:
-    - text: "AI document extraction for medical billing"
-      intent: "tool discovery"
-      vertical: "healthcare"
-      priority: high
-    - text: "EOB extraction software"
-      intent: "tool discovery"
-      vertical: "healthcare"
-      priority: high
-    - text: "medical claims document automation"
-      intent: "tool discovery"
-      vertical: "healthcare"
-      priority: high
-    - text: "CMS 1500 extraction software"
-      intent: "tool discovery"
-      vertical: "healthcare"
-      priority: high
-    - text: "AI payment reconciliation for healthcare"
-      intent: "tool discovery"
-      vertical: "healthcare"
-      priority: medium
-
-  vertical_insurance:
-    - text: "AI document extraction for insurance brokers"
-      intent: "tool discovery"
-      vertical: "insurance"
-      priority: high
-    - text: "insurance commission statement extraction software"
-      intent: "tool discovery"
-      vertical: "insurance"
-      priority: high
-    - text: "direct bill reconciliation automation"
-      intent: "workflow"
-      vertical: "insurance"
-      priority: high
-    - text: "insurance data reconciliation software"
-      intent: "tool discovery"
-      vertical: "insurance"
-      priority: medium
-
-  vertical_construction:
-    - text: "AP automation for home builders"
-      intent: "tool discovery"
-      vertical: "construction"
-      priority: medium
-    - text: "invoice extraction software construction"
-      intent: "tool discovery"
-      vertical: "construction"
-      priority: medium
-    - text: "duplicate invoice detection construction AP"
-      intent: "workflow"
-      vertical: "construction"
-      priority: medium
-    - text: "bank statement extraction for construction finance teams"
-      intent: "tool discovery"
-      vertical: "construction"
-      priority: medium
-
-  vertical_logistics:
-    - text: "freight invoice extraction software"
-      intent: "tool discovery"
-      vertical: "logistics"
-      priority: medium
-    - text: "carrier invoice automation TMS"
-      intent: "tool discovery"
-      vertical: "logistics"
-      priority: medium
-    - text: "invoice PO BOL matching software"
-      intent: "tool discovery"
-      vertical: "logistics"
-      priority: high
-    - text: "AI 3-way matching for distributors"
-      intent: "tool discovery"
-      vertical: "logistics"
-      priority: high
-    - text: "NetSuite PO entry automation"
-      intent: "workflow"
-      vertical: "logistics"
+    - text: "in-house RFP database vs software"
+      intent: "build_vs_buy"
+      vertical: "general"
       priority: medium

@@ -1,11 +1,22 @@
 from __future__ import annotations
 import logging
+import time
+import re
 from typing import Optional
 
 from firecrawl.v2.client import FirecrawlClient
 from firecrawl.v2.types import ScrapeOptions
 
 log = logging.getLogger(__name__)
+
+_RATE_LIMIT_DEFAULT_WAIT = 60  # seconds to wait when no retry-after hint
+
+
+def _retry_after(exc: Exception) -> int:
+    """Parse 'retry after Ns' from a RateLimitError message, defaulting to 60s."""
+    msg = str(exc)
+    m = re.search(r"retry after (\d+)s", msg)
+    return int(m.group(1)) + 2 if m else _RATE_LIMIT_DEFAULT_WAIT
 
 
 class AEOFirecrawlClient:
@@ -21,8 +32,19 @@ class AEOFirecrawlClient:
         """
         Run a web search. Returns a dict with key 'web' containing a list of result dicts.
         Each result has: url, title, description, position, category.
+        Retries once on RateLimitError with the suggested backoff.
         """
-        result = self._client.search(query, limit=limit)
+        for attempt in range(2):
+            try:
+                result = self._client.search(query, limit=limit)
+                break
+            except Exception as exc:
+                if "RateLimitError" in type(exc).__name__ and attempt == 0:
+                    wait = _retry_after(exc)
+                    log.warning("Firecrawl rate limit — waiting %ds before retry", wait)
+                    time.sleep(wait)
+                else:
+                    raise
         web = result.web or []
         return {
             "web": [
@@ -40,8 +62,18 @@ class AEOFirecrawlClient:
         }
 
     def scrape(self, url: str) -> dict:
-        """Scrape a URL and return markdown content plus metadata."""
-        doc = self._client.scrape(url, formats=["markdown"])
+        """Scrape a URL and return markdown content plus metadata. Retries once on rate limit."""
+        for attempt in range(2):
+            try:
+                doc = self._client.scrape(url, formats=["markdown"])
+                break
+            except Exception as exc:
+                if "RateLimitError" in type(exc).__name__ and attempt == 0:
+                    wait = _retry_after(exc)
+                    log.warning("Firecrawl rate limit (scrape) — waiting %ds", wait)
+                    time.sleep(wait)
+                else:
+                    raise
         metadata = doc.metadata or {}
         return {
             "url": url,

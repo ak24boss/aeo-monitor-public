@@ -1,0 +1,14 @@
+slug: ambrook
+company_name: "Ambrook"
+company_domain: "ambrook.com"
+contact_email: "alex@trylido.com"
+
+competitors:
+  - intuit.com        # QuickBooks — primary displacement target
+  - xero.com
+  - freshbooks.com
+  - harvestprofit.com # farm P&L analytics
+  - granular.ag       # Corteva farm management
+  - tractionag.com    # farm accounting
+  - stessa.com        # property management accounting
+  - farmbooks.com     # legacy farm accounting

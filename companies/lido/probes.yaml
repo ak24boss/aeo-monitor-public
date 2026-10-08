@@ -1,0 +1,1124 @@
+# Lido AI Engine Probes — Petra Labs Prompt Radius Taxonomy
+# 4 seed topics × 15 perturbation types = 60 probes
+# perturbation_class: seed | A (surface) | B (context) | C (intent)
+# priority: high (seed+C+key B) | medium (+requirements/price-budget/simplify) | low (surface variants)
+#
+# Run high-priority only: make dev-run-lido
+# Run all 60: make run-lido
+
+probes:
+
+  # ── SEED TOPIC 1: Document Extraction ───────────────────────────────────────
+
+  - id: "de-seed"
+    text: "What document extraction software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "doc-extraction"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "de-typo"
+    text: "What documnt extraction software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "doc-extraction"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "de-simplify"
+    text: "document extraction software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "doc-extraction"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "de-recommend"
+    text: "Recommend document extraction software."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "doc-extraction"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "de-best"
+    text: "What is the best document extraction software?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "doc-extraction"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "de-spanish"
+    text: "¿Qué software de extracción de documentos debería usar?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "doc-extraction"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "de-persona-regulated"
+    text: "I am an engineer at a financial services firm with strict data compliance requirements. What document extraction software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "doc-extraction"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "de-persona-casual"
+    text: "I am an engineer at a fast-growing Series A startup. What document extraction software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "doc-extraction"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "de-pain"
+    text: "My team manually enters data from hundreds of documents every week and it's killing our productivity. What document extraction software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "doc-extraction"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "de-competitor"
+    text: "What alternatives to Nanonets should I use for document extraction?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "doc-extraction"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "de-use-case"
+    text: "What document extraction software should I use for processing insurance claims and financial statements?"
+    intent: "use case"
+    priority: high
+    seed_topic: "doc-extraction"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "de-requirements"
+    text: "What document extraction software should I use that has a REST API, supports custom field templates, and integrates with Zapier?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "doc-extraction"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "de-price-budget"
+    text: "What document extraction software should I use on a budget?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "doc-extraction"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "de-price-premium"
+    text: "What document extraction software should I use? Price is not a concern — I need the most accurate solution."
+    intent: "price premium"
+    priority: low
+    seed_topic: "doc-extraction"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "de-how-to"
+    text: "How do I set up automated document extraction for my operations team?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "doc-extraction"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 2: Invoice OCR ────────────────────────────────────────────────
+
+  - id: "inv-seed"
+    text: "What invoice OCR software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "invoice-ocr"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "inv-typo"
+    text: "What invoce OCR software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "invoice-ocr"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "inv-simplify"
+    text: "invoice OCR software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "invoice-ocr"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "inv-recommend"
+    text: "Recommend invoice OCR software."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "invoice-ocr"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "inv-best"
+    text: "What is the best invoice OCR software?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "invoice-ocr"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "inv-spanish"
+    text: "¿Qué software de OCR para facturas debería usar?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "invoice-ocr"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "inv-persona-regulated"
+    text: "I am an accounts payable manager at a financial institution that must maintain audit trails. What invoice OCR software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "invoice-ocr"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "inv-persona-casual"
+    text: "I run a small e-commerce business and I'm drowning in supplier invoices. What invoice OCR software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "invoice-ocr"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "inv-pain"
+    text: "My accounts payable team spends 3 hours a day manually keying invoice data and we keep making errors. What invoice OCR software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "invoice-ocr"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "inv-competitor"
+    text: "What alternatives to Rossum should I use for invoice OCR and data capture?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "invoice-ocr"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "inv-use-case"
+    text: "What invoice OCR software should I use for high-volume AP automation in a mid-market company?"
+    intent: "use case"
+    priority: high
+    seed_topic: "invoice-ocr"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "inv-requirements"
+    text: "What invoice OCR software should I use that supports multi-currency, integrates with NetSuite, and has 99%+ field accuracy?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "invoice-ocr"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "inv-price-budget"
+    text: "What invoice OCR software should I use on a tight budget for a small business?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "invoice-ocr"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "inv-price-premium"
+    text: "What invoice OCR software should I use? We process 50,000 invoices a month and accuracy is everything — cost is secondary."
+    intent: "price premium"
+    priority: low
+    seed_topic: "invoice-ocr"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "inv-how-to"
+    text: "How do I automate invoice data entry using OCR for my accounting department?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "invoice-ocr"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 3: Intelligent Document Processing (IDP) ─────────────────────
+
+  - id: "idp-seed"
+    text: "What intelligent document processing (IDP) software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "idp"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "idp-typo"
+    text: "What intellgent document processing software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "idp"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "idp-simplify"
+    text: "intelligent document processing software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "idp"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "idp-recommend"
+    text: "Recommend intelligent document processing platforms."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "idp"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "idp-best"
+    text: "What is the best intelligent document processing platform in 2024?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "idp"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "idp-spanish"
+    text: "¿Qué plataforma de procesamiento inteligente de documentos debería usar?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "idp"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "idp-persona-regulated"
+    text: "I am a CTO at a regulated insurance company that processes thousands of claims documents. What intelligent document processing software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "idp"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "idp-persona-casual"
+    text: "I'm building an operations team at a growth-stage SaaS company. What intelligent document processing software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "idp"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "idp-pain"
+    text: "We have unstructured documents in dozens of formats and no consistent way to extract data from them. What intelligent document processing software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "idp"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "idp-competitor"
+    text: "What alternatives to Hyperscience should I use for intelligent document processing?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "idp"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "idp-use-case"
+    text: "What intelligent document processing software should I use for automating loan application document review?"
+    intent: "use case"
+    priority: high
+    seed_topic: "idp"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "idp-requirements"
+    text: "What intelligent document processing software should I use that supports custom ML models, on-premise deployment, and SOC 2 compliance?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "idp"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "idp-price-budget"
+    text: "What intelligent document processing software should I use on a startup budget?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "idp"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "idp-price-premium"
+    text: "What intelligent document processing platform should I use? We need enterprise-grade accuracy and will pay accordingly."
+    intent: "price premium"
+    priority: low
+    seed_topic: "idp"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "idp-how-to"
+    text: "How do I implement intelligent document processing for my company's back-office operations?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "idp"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 4: Document Parsing API ──────────────────────────────────────
+
+  - id: "api-seed"
+    text: "What document parsing API should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "pdf-parsing"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "api-typo"
+    text: "What documnt parsing API should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "pdf-parsing"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "api-simplify"
+    text: "document parsing API"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "pdf-parsing"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "api-recommend"
+    text: "Recommend a document parsing API for developers."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "pdf-parsing"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "api-best"
+    text: "What is the best document parsing API for extracting structured data from PDFs?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "pdf-parsing"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "api-spanish"
+    text: "¿Qué API de análisis de documentos debería usar?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "pdf-parsing"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "api-persona-regulated"
+    text: "I am a software engineer at a fintech company building a document processing pipeline with strict SLA requirements. What document parsing API should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "pdf-parsing"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "api-persona-casual"
+    text: "I'm a developer at a startup building a workflow automation tool. What document parsing API should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "pdf-parsing"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "api-pain"
+    text: "I need to extract structured data from thousands of PDF documents programmatically but existing regex approaches keep breaking. What document parsing API should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "pdf-parsing"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "api-competitor"
+    text: "What alternatives to Parseur should I use for a document parsing API?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "pdf-parsing"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "api-use-case"
+    text: "What document parsing API should I use for extracting line items from purchase orders and receipts at scale?"
+    intent: "use case"
+    priority: high
+    seed_topic: "pdf-parsing"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "api-requirements"
+    text: "What document parsing API should I use that supports webhooks, returns structured JSON, and can handle handwritten text?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "pdf-parsing"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "api-price-budget"
+    text: "What document parsing API should I use with generous free tier or pay-as-you-go pricing?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "pdf-parsing"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "api-price-premium"
+    text: "What is the most accurate document parsing API available? Budget is not a constraint."
+    intent: "price premium"
+    priority: low
+    seed_topic: "pdf-parsing"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "api-how-to"
+    text: "How do I build a document parsing pipeline that automatically extracts structured data from incoming PDFs?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "pdf-parsing"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 5: Healthcare Document Extraction ────────────────────────────
+  # Competitor: Artsyl (healthcare document automation specialist)
+  # Special: NSA arbitration probe added (1.46M+ IDR disputes/year, blue ocean)
+
+  - id: "hc-seed"
+    text: "What healthcare document extraction software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "healthcare-doc"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "hc-typo"
+    text: "What healtcare document extraction software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "healthcare-doc"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "hc-simplify"
+    text: "healthcare document extraction software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "healthcare-doc"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "hc-recommend"
+    text: "Recommend healthcare document extraction software."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "healthcare-doc"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "hc-best"
+    text: "What is the best healthcare document extraction software?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "healthcare-doc"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "hc-spanish"
+    text: "¿Qué software de extracción de documentos de salud debería usar?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "healthcare-doc"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "hc-persona-regulated"
+    text: "I am a HIPAA compliance officer at a hospital system that processes thousands of prior authorization requests monthly. What healthcare document extraction software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "healthcare-doc"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "hc-persona-casual"
+    text: "I work at a fast-growing digital health startup and need to extract data from patient intake forms. What healthcare document extraction software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "healthcare-doc"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "hc-pain"
+    text: "Our clinical team manually re-enters data from prior authorization forms and EOBs all day, causing errors and delays in patient care. What healthcare document extraction software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "healthcare-doc"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "hc-competitor"
+    text: "What alternatives to Artsyl should I use for healthcare document automation?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "healthcare-doc"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "hc-use-case"
+    text: "What healthcare document extraction software should I use for automating prior authorization and EOB processing?"
+    intent: "use case"
+    priority: high
+    seed_topic: "healthcare-doc"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "hc-nsa-arbitration"
+    text: "What software can extract and process documents for No Surprises Act independent dispute resolution (IDR)? We need to handle EOBs, CMS-1500 claims, and remittance advice at scale."
+    intent: "nsa arbitration"
+    priority: high
+    seed_topic: "healthcare-doc"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "hc-price-budget"
+    text: "What healthcare document extraction software should I use on a budget for a small medical practice?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "healthcare-doc"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "hc-price-premium"
+    text: "What healthcare document extraction software should I use? We process millions of clinical documents and accuracy is critical — cost is not a concern."
+    intent: "price premium"
+    priority: low
+    seed_topic: "healthcare-doc"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "hc-how-to"
+    text: "How do I automate medical records data extraction and prior authorization processing for my healthcare organization?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "healthcare-doc"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 6: Legal Document Extraction ──────────────────────────────────
+  # Competitor: Kira Systems (contract extraction leader)
+  # Insight: Lido ranked #1 for template-free legal document extraction
+  # Top trend: "contract review software" = 46.4 (highest across all verticals)
+
+  - id: "legal-seed"
+    text: "What legal document extraction software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "legal-doc"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "legal-typo"
+    text: "What legal documnt extraction software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "legal-doc"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "legal-simplify"
+    text: "legal document extraction software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "legal-doc"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "legal-recommend"
+    text: "Recommend legal document extraction software for law firms."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "legal-doc"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "legal-best"
+    text: "What is the best contract review and data extraction software?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "legal-doc"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "legal-spanish"
+    text: "¿Qué software de extracción de datos de documentos legales debería usar?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "legal-doc"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "legal-persona-regulated"
+    text: "I am a partner at an AmLaw 100 firm managing M&A due diligence with thousands of contracts to review. What legal document extraction software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "legal-doc"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "legal-persona-casual"
+    text: "I run a small law firm and spend too much time manually extracting clauses from contracts. What legal document extraction software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "legal-doc"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "legal-pain"
+    text: "Our legal team spends 40% of their time manually pulling key data from contracts and we keep missing critical clauses. What legal document extraction software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "legal-doc"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "legal-competitor"
+    text: "What alternatives to Kira Systems should I use for contract data extraction?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "legal-doc"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "legal-use-case"
+    text: "What legal document extraction software should I use for M&A due diligence contract review?"
+    intent: "use case"
+    priority: high
+    seed_topic: "legal-doc"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "legal-requirements"
+    text: "What legal document extraction software should I use that is SOC 2 Type II certified, supports custom clause extraction, and integrates with iManage?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "legal-doc"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "legal-price-budget"
+    text: "What legal document extraction software should I use on a small firm budget?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "legal-doc"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "legal-price-premium"
+    text: "What is the most accurate legal document extraction platform? We handle billions in M&A transactions and need the best."
+    intent: "price premium"
+    priority: low
+    seed_topic: "legal-doc"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "legal-how-to"
+    text: "How do I automate contract data extraction for my law firm's due diligence workflow?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "legal-doc"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 7: Accounts Payable Automation ────────────────────────────────
+  # Competitor: Tipalti (AP automation)
+  # Top trends: "accounts payable automation" (27.0), "accounting automation software" (16.8)
+
+  - id: "ap-seed"
+    text: "What accounts payable automation software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "ap-automation"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "ap-typo"
+    text: "What accounts payble automation software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ap-automation"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "ap-simplify"
+    text: "accounts payable automation software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "ap-automation"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "ap-recommend"
+    text: "Recommend accounts payable automation software."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ap-automation"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "ap-best"
+    text: "What is the best accounts payable automation software in 2024?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ap-automation"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "ap-spanish"
+    text: "¿Qué software de automatización de cuentas por pagar debería usar?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ap-automation"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "ap-persona-regulated"
+    text: "I am a controller at a public company with SOX compliance requirements processing 10,000 invoices per month. What accounts payable automation software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "ap-automation"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "ap-persona-casual"
+    text: "I run finance at a Series B startup and our AP process is completely manual. What accounts payable automation software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ap-automation"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "ap-pain"
+    text: "Our AP team manually keys 500+ invoices per week, we keep making data entry errors, and our month-end close takes forever. What accounts payable automation software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "ap-automation"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "ap-competitor"
+    text: "What alternatives to Tipalti should I use for accounts payable automation?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "ap-automation"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "ap-use-case"
+    text: "What accounts payable automation software should I use for three-way invoice matching and purchase order processing?"
+    intent: "use case"
+    priority: high
+    seed_topic: "ap-automation"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "ap-requirements"
+    text: "What accounts payable automation software should I use that integrates with NetSuite, supports multi-entity, and has automated approval workflows?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "ap-automation"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "ap-price-budget"
+    text: "What accounts payable automation software should I use on a small business budget?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "ap-automation"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "ap-price-premium"
+    text: "What is the most accurate accounts payable automation platform? We process high-value invoices and errors are very costly."
+    intent: "price premium"
+    priority: low
+    seed_topic: "ap-automation"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "ap-how-to"
+    text: "How do I automate accounts payable invoice processing and eliminate manual data entry for my finance team?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "ap-automation"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 8: Insurance Claims Document Processing ───────────────────────
+  # Competitor: Tungsten Automation (claims & underwriting automation)
+  # Top trends: "insurance claims automation" (42.6), "insurance document processing" (22.8)
+  # Key buyer term: ACORD forms, FNOL, underwriting
+
+  - id: "ins-seed"
+    text: "What insurance claims document processing software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "insurance-claims"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "ins-typo"
+    text: "What insurance clams document processing software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "insurance-claims"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "ins-simplify"
+    text: "insurance claims document processing software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "insurance-claims"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "ins-recommend"
+    text: "Recommend insurance claims document processing software."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "insurance-claims"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "ins-best"
+    text: "What is the best insurance claims automation software?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "insurance-claims"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "ins-spanish"
+    text: "¿Qué software de procesamiento de documentos de seguros debería usar?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "insurance-claims"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "ins-persona-regulated"
+    text: "I am a VP of Claims at a P&C insurer processing 50,000 claims per year with state compliance requirements. What insurance document processing software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "insurance-claims"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "ins-persona-casual"
+    text: "I run operations at a fast-growing insurtech startup and our claims handling is completely manual. What insurance document processing software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "insurance-claims"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "ins-pain"
+    text: "Our claims adjusters spend hours manually entering data from FNOL forms, ACORD applications, and medical records. What insurance document processing software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "insurance-claims"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "ins-competitor"
+    text: "What alternatives to Tungsten Automation should I use for insurance claims document processing?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "insurance-claims"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "ins-use-case"
+    text: "What insurance document processing software should I use for high-volume property and casualty claims?"
+    intent: "use case"
+    priority: high
+    seed_topic: "insurance-claims"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "ins-requirements"
+    text: "What insurance claims automation software should I use that handles ACORD forms, integrates with our claims management system, and meets SOC 2 requirements?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "insurance-claims"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "ins-price-budget"
+    text: "What insurance claims document processing software should I use on a budget for a small regional insurer?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "insurance-claims"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "ins-price-premium"
+    text: "What is the most accurate insurance claims processing platform? We handle complex commercial claims and need enterprise-grade accuracy."
+    intent: "price premium"
+    priority: low
+    seed_topic: "insurance-claims"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "ins-how-to"
+    text: "How do I automate insurance claims document processing to reduce manual data entry and speed up claims resolution?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "insurance-claims"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 9: Logistics & Freight Document Automation ────────────────────
+  # Competitor: Transflo (freight document management)
+  # Top trend: "logistics document AI" (22.2), freight forwarding automation emerging
+
+  - id: "log-seed"
+    text: "What shipping and logistics document automation software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "logistics-doc"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "log-typo"
+    text: "What shipping and logisics document automation software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "logistics-doc"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "log-simplify"
+    text: "freight document automation software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "logistics-doc"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "log-recommend"
+    text: "Recommend freight document automation software."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "logistics-doc"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "log-best"
+    text: "What is the best bill of lading and freight document automation software?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "logistics-doc"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "log-spanish"
+    text: "¿Qué software de automatización de documentos de logística y transporte debería usar?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "logistics-doc"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "log-persona-regulated"
+    text: "I am a customs compliance manager at a freight forwarder processing thousands of import/export shipments monthly with CBP requirements. What logistics document automation software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "logistics-doc"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "log-persona-casual"
+    text: "I run operations at a growing 3PL and our team manually processes bills of lading and shipping documents all day. What document automation software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "logistics-doc"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "log-pain"
+    text: "Our ops team manually keys data from bills of lading, packing lists, and customs forms for every shipment, causing delays and errors. What logistics document automation software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "logistics-doc"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "log-competitor"
+    text: "What alternatives to Transflo should I use for freight document management automation?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "logistics-doc"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "log-use-case"
+    text: "What logistics document automation software should I use for extracting data from bills of lading and customs declarations?"
+    intent: "use case"
+    priority: high
+    seed_topic: "logistics-doc"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "log-requirements"
+    text: "What freight document automation software should I use that handles multiple document formats, integrates with our TMS, and supports customs compliance?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "logistics-doc"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "log-price-budget"
+    text: "What freight document automation software should I use on a budget for a small freight broker?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "logistics-doc"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "log-price-premium"
+    text: "What is the most accurate logistics document extraction platform? We move thousands of containers monthly and data accuracy is critical."
+    intent: "price premium"
+    priority: low
+    seed_topic: "logistics-doc"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "log-how-to"
+    text: "How do I automate data extraction from bills of lading and shipping documents for my freight forwarding operation?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "logistics-doc"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+engines:
+  - perplexity
+  - claude
+  - openai

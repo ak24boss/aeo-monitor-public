@@ -1,0 +1,326 @@
+categories:
+
+  # ── Core document extraction ───────────────────────────────────────────────
+  commercial:
+    - text: "best document extraction software"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "AI document extraction tool"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "intelligent document processing software"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "best IDP software 2024"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "document parsing API"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+    - text: "automated data extraction from PDFs"
+      intent: "use case"
+      vertical: "general"
+      priority: high
+
+  # ── Invoice and finance OCR ────────────────────────────────────────────────
+  vertical_finance:
+    - text: "invoice OCR software"
+      intent: "tool discovery"
+      vertical: "finance"
+      priority: high
+    - text: "automated invoice data extraction"
+      intent: "use case"
+      vertical: "finance"
+      priority: high
+    - text: "best invoice processing software for accounting"
+      intent: "tool discovery"
+      vertical: "accounting"
+      priority: high
+    - text: "AP automation software with OCR"
+      intent: "tool discovery"
+      vertical: "finance"
+      priority: medium
+    - text: "extract data from invoices automatically"
+      intent: "use case"
+      vertical: "finance"
+      priority: medium
+
+  # ── Competitor alternatives ────────────────────────────────────────────────
+  alternatives:
+    - text: "Nanonets alternatives"
+      intent: "comparison"
+      vertical: "general"
+      priority: high
+    - text: "Rossum alternatives"
+      intent: "comparison"
+      vertical: "general"
+      priority: high
+    - text: "Parseur alternatives"
+      intent: "comparison"
+      vertical: "general"
+      priority: high
+    - text: "best Nanonets alternative for invoice processing"
+      intent: "competitor displacement"
+      vertical: "finance"
+      priority: high
+
+  # ── Problem-aware ─────────────────────────────────────────────────────────
+  problem_aware:
+    - text: "how to automate data extraction from documents"
+      intent: "use case"
+      vertical: "general"
+      priority: medium
+    - text: "extract structured data from unstructured documents"
+      intent: "use case"
+      vertical: "general"
+      priority: medium
+    - text: "automate manual data entry from PDFs"
+      intent: "use case"
+      vertical: "general"
+      priority: medium
+
+  # ── Workflow integration ───────────────────────────────────────────────────
+  workflow:
+    - text: "document extraction API for developers"
+      intent: "workflow"
+      vertical: "general"
+      priority: medium
+    - text: "extract data from PDFs into spreadsheet automatically"
+      intent: "workflow"
+      vertical: "general"
+      priority: medium
+    - text: "document data extraction Zapier integration"
+      intent: "workflow"
+      vertical: "general"
+      priority: low
+
+  # ── Healthcare ────────────────────────────────────────────────────────────
+  # Top trend: healthcare doc automation rate-limited by Google (extremely high volume)
+  vertical_healthcare:
+    - text: "healthcare document automation software"
+      intent: "tool discovery"
+      vertical: "healthcare"
+      priority: high
+    - text: "medical records extraction software"
+      intent: "tool discovery"
+      vertical: "healthcare"
+      priority: high
+    - text: "prior authorization document automation"
+      intent: "use case"
+      vertical: "healthcare"
+      priority: high
+    - text: "EOB processing automation software"
+      intent: "tool discovery"
+      vertical: "healthcare"
+      priority: high
+    - text: "HIPAA compliant document extraction software"
+      intent: "requirements"
+      vertical: "healthcare"
+      priority: high
+    - text: "NSA arbitration document extraction software"
+      intent: "use case"
+      vertical: "healthcare"
+      priority: high
+    - text: "No Surprises Act IDR document processing"
+      intent: "use case"
+      vertical: "healthcare"
+      priority: high
+    - text: "medical bill data extraction automation"
+      intent: "use case"
+      vertical: "healthcare"
+      priority: medium
+    - text: "clinical document data extraction tool"
+      intent: "tool discovery"
+      vertical: "healthcare"
+      priority: medium
+    - text: "how to automate medical records data entry"
+      intent: "use case"
+      vertical: "healthcare"
+      priority: medium
+    - text: "Artsyl alternatives for healthcare document automation"
+      intent: "comparison"
+      vertical: "healthcare"
+      priority: medium
+
+  # ── Legal ─────────────────────────────────────────────────────────────────
+  # Top trend: "contract review software" (46.4 search interest — highest of all verticals)
+  # Note: Lido ranks #1 for template-free legal document extraction
+  vertical_legal:
+    - text: "contract review software"
+      intent: "tool discovery"
+      vertical: "legal"
+      priority: high
+    - text: "legal document extraction software"
+      intent: "tool discovery"
+      vertical: "legal"
+      priority: high
+    - text: "contract data extraction automation"
+      intent: "tool discovery"
+      vertical: "legal"
+      priority: high
+    - text: "legal document automation software"
+      intent: "tool discovery"
+      vertical: "legal"
+      priority: high
+    - text: "AI contract review software"
+      intent: "tool discovery"
+      vertical: "legal"
+      priority: high
+    - text: "extract data from legal contracts automatically"
+      intent: "use case"
+      vertical: "legal"
+      priority: medium
+    - text: "eDiscovery document processing software"
+      intent: "tool discovery"
+      vertical: "legal"
+      priority: medium
+    - text: "law firm document automation software"
+      intent: "tool discovery"
+      vertical: "legal"
+      priority: medium
+    - text: "Kira Systems alternatives for contract extraction"
+      intent: "comparison"
+      vertical: "legal"
+      priority: medium
+    - text: "legal AI document processing for M&A due diligence"
+      intent: "use case"
+      vertical: "legal"
+      priority: medium
+
+  # ── Accounting / AP ───────────────────────────────────────────────────────
+  # Top trend: "accounts payable automation" (27.0), "accounting automation software" (16.8)
+  vertical_accounting:
+    - text: "accounts payable automation software"
+      intent: "tool discovery"
+      vertical: "accounting"
+      priority: high
+    - text: "invoice processing automation software"
+      intent: "tool discovery"
+      vertical: "accounting"
+      priority: high
+    - text: "AP automation software with OCR"
+      intent: "tool discovery"
+      vertical: "accounting"
+      priority: high
+    - text: "financial document data extraction software"
+      intent: "tool discovery"
+      vertical: "accounting"
+      priority: high
+    - text: "automate invoice data entry accounting"
+      intent: "use case"
+      vertical: "accounting"
+      priority: high
+    - text: "best accounts payable automation software 2024"
+      intent: "tool discovery"
+      vertical: "accounting"
+      priority: medium
+    - text: "purchase order data extraction automation"
+      intent: "use case"
+      vertical: "accounting"
+      priority: medium
+    - text: "receipt data extraction software"
+      intent: "tool discovery"
+      vertical: "accounting"
+      priority: medium
+    - text: "Tipalti alternatives for AP document automation"
+      intent: "comparison"
+      vertical: "accounting"
+      priority: medium
+    - text: "three-way match automation software"
+      intent: "use case"
+      vertical: "accounting"
+      priority: low
+
+  # ── Insurance ─────────────────────────────────────────────────────────────
+  # Top trends: "insurance claims automation" (42.6), "insurance document processing" (22.8)
+  # 69% of insurers use AI for data extraction and document processing
+  vertical_insurance:
+    - text: "insurance claims automation software"
+      intent: "tool discovery"
+      vertical: "insurance"
+      priority: high
+    - text: "insurance document processing software"
+      intent: "tool discovery"
+      vertical: "insurance"
+      priority: high
+    - text: "claims document extraction software"
+      intent: "tool discovery"
+      vertical: "insurance"
+      priority: high
+    - text: "FNOL document processing software"
+      intent: "tool discovery"
+      vertical: "insurance"
+      priority: high
+    - text: "underwriting document automation software"
+      intent: "tool discovery"
+      vertical: "insurance"
+      priority: high
+    - text: "insurance claims OCR software"
+      intent: "tool discovery"
+      vertical: "insurance"
+      priority: medium
+    - text: "policy document data extraction automation"
+      intent: "use case"
+      vertical: "insurance"
+      priority: medium
+    - text: "automate insurance claims processing documents"
+      intent: "use case"
+      vertical: "insurance"
+      priority: medium
+    - text: "Tungsten Automation alternatives for claims document processing"
+      intent: "comparison"
+      vertical: "insurance"
+      priority: medium
+    - text: "ACORD form data extraction software"
+      intent: "tool discovery"
+      vertical: "insurance"
+      priority: medium
+
+  # ── Logistics ─────────────────────────────────────────────────────────────
+  # Top trend: "logistics document AI" (22.2), bill of lading automation emerging
+  vertical_logistics:
+    - text: "bill of lading extraction software"
+      intent: "tool discovery"
+      vertical: "logistics"
+      priority: high
+    - text: "shipping document automation software"
+      intent: "tool discovery"
+      vertical: "logistics"
+      priority: high
+    - text: "freight document management automation"
+      intent: "tool discovery"
+      vertical: "logistics"
+      priority: high
+    - text: "customs document processing automation"
+      intent: "tool discovery"
+      vertical: "logistics"
+      priority: high
+    - text: "logistics document AI"
+      intent: "tool discovery"
+      vertical: "logistics"
+      priority: high
+    - text: "automate bill of lading data entry"
+      intent: "use case"
+      vertical: "logistics"
+      priority: medium
+    - text: "supply chain document extraction software"
+      intent: "tool discovery"
+      vertical: "logistics"
+      priority: medium
+    - text: "freight forwarding document automation"
+      intent: "use case"
+      vertical: "logistics"
+      priority: medium
+    - text: "Transflo alternatives for freight document automation"
+      intent: "comparison"
+      vertical: "logistics"
+      priority: medium
+    - text: "customs broker document processing software"
+      intent: "tool discovery"
+      vertical: "logistics"
+      priority: low

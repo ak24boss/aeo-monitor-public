@@ -1,0 +1,33 @@
+# SERP query library for {Your Company}
+# Schema: text (required), intent, vertical, priority (high/medium/low)
+# intent: "tool discovery" | "use case" | "comparison" | "workflow" | "competitor displacement"
+# vertical: any label (used for filtering)
+# priority: high → also sent to Perplexity for AE citations; medium/low → SERP only
+
+categories:
+
+  # ── Core commercial queries ─────────────────────────────────────────────
+  commercial:
+    - text: "best [your category] software"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+
+    - text: "AI [your category] tool"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: high
+
+  # ── Competitor alternatives ──────────────────────────────────────────────
+  alternatives:
+    - text: "[competitor] alternatives"
+      intent: "comparison"
+      vertical: "general"
+      priority: high
+
+  # ── Problem-aware ────────────────────────────────────────────────────────
+  problem_aware:
+    - text: "how to automate [your problem]"
+      intent: "use case"
+      vertical: "general"
+      priority: medium

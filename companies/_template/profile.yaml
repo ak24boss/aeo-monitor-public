@@ -1,0 +1,18 @@
+# Company profile — copy this directory to companies/{slug}/ and fill in below.
+# Run: make new-company SLUG=yourslug
+# Then edit this file and queries.yaml and probes.yaml.
+
+slug: _template                    # must match directory name — change this first
+company_name: "Your Company"
+company_domain: "yourcompany.com"
+contact_email: "you@yourcompany.com"
+
+competitors:
+  - competitor1.com
+  - competitor2.com
+  - competitor3.com
+
+# Optional pipeline overrides (comment out to use defaults)
+# max_serp_results: 10
+# top_urls_for_analysis: 30
+# firecrawl_rate_limit_rps: 2.0

@@ -268,6 +268,105 @@ def write_weekly_diff_md(
     return path
 
 
+def write_ai_visibility_md(
+    conn: "duckdb.DuckDBPyConnection",
+    run_date: date,
+    out_dir: Path,
+    company_name: str = "Your Company",
+    brand_domain: str = "yourcompany.com",
+) -> Path:
+    path = out_dir / "ai_visibility.md"
+
+    if not _table_has_rows(conn, "ae_probe_results", run_date):
+        path.write_text(
+            f"# AI Engine Visibility — {run_date}\n\n"
+            "*No AI engine probe data for this run. "
+            "Add probes.yaml and configure engine API keys to enable Phase 4A.*\n"
+        )
+        return path
+
+    probe_rows = conn.execute(
+        """
+        SELECT engine, probe_id, probe_text, brand_mentioned,
+               brand_context, competitors_mentioned, cited_urls
+        FROM ae_probe_results
+        WHERE run_date = ?
+        ORDER BY engine, probe_id
+        """,
+        [run_date],
+    ).fetchall()
+
+    # Share-of-voice per engine
+    engine_stats: dict[str, dict] = {}
+    for engine, probe_id, probe_text, brand_mentioned, brand_ctx, comps_json, cited_json in probe_rows:
+        if engine not in engine_stats:
+            engine_stats[engine] = {"total": 0, "brand_mentioned": 0, "all_cited": []}
+        engine_stats[engine]["total"] += 1
+        if brand_mentioned:
+            engine_stats[engine]["brand_mentioned"] += 1
+        for url in json.loads(cited_json or "[]"):
+            engine_stats[engine]["all_cited"].append(url)
+
+    # Cross-reference rows for critical/high priority items
+    xref_rows = conn.execute(
+        """
+        SELECT url, domain, serp_weighted_score, engines_citing_url,
+               engine_citation_count, action_priority
+        FROM cross_reference
+        WHERE run_date = ?
+          AND action_priority IN ('critical', 'high')
+        ORDER BY
+            CASE action_priority WHEN 'critical' THEN 0 ELSE 1 END,
+            serp_weighted_score DESC
+        LIMIT 20
+        """,
+        [run_date],
+    ).fetchall() if _table_has_rows(conn, "cross_reference", run_date) else []
+
+    lines = [
+        f"# AI Engine Visibility — {run_date}\n",
+        f"*Direct probe results: what AI engines say when users ask about {company_name}'s problem space.*\n",
+        "",
+        "## Share of Voice by Engine\n",
+        f"| Engine | Probes | {company_name} Mentions | Share |",
+        "|--------|--------|------------------------|-------|",
+    ]
+    for engine, stats in sorted(engine_stats.items()):
+        total = stats["total"]
+        mentioned = stats["brand_mentioned"]
+        pct = (mentioned / total * 100) if total else 0
+        lines.append(f"| {engine} | {total} | {mentioned} | {pct:.1f}% |")
+
+    lines += ["", "## Critical Gaps — High-SERP Pages AI Engines Cite Without You\n"]
+    if not xref_rows:
+        lines.append("*No critical/high gaps detected — no cross-reference data or brand present on all cited pages.*\n")
+    else:
+        lines.append(f"*Pages AI engines actively cite where {company_name} is absent — ranked by SERP score.*\n")
+        for url, domain, score, engines_json, cite_count, priority in xref_rows:
+            engines = json.loads(engines_json or "[]") if isinstance(engines_json, str) else (engines_json or [])
+            badge = "[CRITICAL]" if priority == "critical" else "[HIGH]"
+            lines.append(f"### {badge} {url}")
+            lines.append(f"- SERP weight: {score:.2f} | Cited by: {', '.join(engines) or 'none'}")
+            lines.append("")
+
+    lines += ["", "## Probe-by-Probe Breakdown\n"]
+    for engine, probe_id, probe_text, brand_mentioned, brand_ctx, comps_json, cited_json in probe_rows:
+        comps = json.loads(comps_json or "[]")
+        cited = json.loads(cited_json or "[]")
+        mention_icon = "✓" if brand_mentioned else "✗"
+        lines.append(f"### [{engine}] {probe_text}")
+        lines.append(f"- {company_name} mentioned: **{mention_icon}**" + (f" — \"{brand_ctx}\"" if brand_ctx else ""))
+        if comps:
+            lines.append(f"- Competitors: {', '.join(comps)}")
+        if cited:
+            lines.append(f"- Cited ({len(cited)}): {', '.join(cited[:5])}" + (" ..." if len(cited) > 5 else ""))
+        lines.append("")
+
+    path.write_text("\n".join(lines))
+    log.info("Wrote %s", path)
+    return path
+
+
 def _trend_direction(row) -> Optional[str]:
     first = row.get("trend_first")
     last = row.get("trend_last")

@@ -70,3 +70,43 @@ class TrendRow(BaseModel):
     week: str
     interest: int
     rising_related: list[str] = []
+
+
+class ProbeConfig(BaseModel):
+    id: str
+    text: str
+    intent: str
+    priority: Literal["high", "medium", "low"]
+    seed_topic: str = "general"
+    perturbation_class: str = "seed"   # seed | A | B | C
+    perturbation_type: str = "seed"    # seed | typo | simplify | best | recommend | spanish |
+                                       # persona-regulated | persona-casual | pain | competitor |
+                                       # use-case | requirements | price-budget | price-premium | how-to
+
+
+class AEProbeRow(BaseModel):
+    run_date: date
+    engine: str
+    probe_id: str
+    probe_text: str
+    brand_mentioned: bool
+    brand_context: Optional[str] = None
+    competitors_mentioned: list[str] = []
+    cited_urls: list[str] = []
+    cited_domains: list[str] = []
+    raw_response: Optional[str] = None
+    seed_topic: str = "general"
+    perturbation_class: str = "seed"
+    perturbation_type: str = "seed"
+
+
+class CrossReferenceRow(BaseModel):
+    run_date: date
+    url: str
+    domain: str
+    serp_weighted_score: float
+    serp_queries_appearing_in: int
+    engines_citing_url: list[str] = []
+    engine_citation_count: int = 0
+    brand_mentioned_on_page: Optional[bool] = None
+    action_priority: Literal["critical", "high", "medium", "low"] = "medium"

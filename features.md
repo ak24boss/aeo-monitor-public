@@ -105,3 +105,51 @@
 - **Behavior**: `.github/workflows/ci.yml` runs `make check` on every push to any branch, with no API keys required.
 - **Verification**: File `.github/workflows/ci.yml` exists; workflow passes on a clean checkout with no `.env` file present.
 - **State**: [todo]
+
+---
+
+## Feature: Company template system
+
+- **Behavior**: `python __main__.py run --company {slug}` loads company identity, queries, and AI engine probes from `companies/{slug}/profile.yaml`, `queries.yaml`, and `probes.yaml` respectively. Per-company DuckDB at `companies/{slug}/data.db`. `make new-company SLUG=acme` onboards a new company from `_template/`. Running `--company _template` raises `ValueError`.
+- **Verification**: `make check` passes `tests/test_config_companies.py` (4 tests). `make dry-run-lido` completes without error.
+- **State**: [done]
+
+---
+
+## Feature: AI engine provider layer
+
+- **Behavior**: `providers/` package exposes an `AIEngineProvider` Protocol with `engine_name` and `run(probe_text, probe_id) -> ProviderResponse`. Implementations: `PerplexityProvider`, `ClaudeProvider`, `OpenAIProvider`. `MockProvider` and `SilentMockProvider` for production; `FakeMockProvider` and `FakeSilentMockProvider` in `tests/fakes.py`. `isinstance(MockProvider(), AIEngineProvider)` passes at runtime.
+- **Verification**: `make check` passes. `from providers.mock import MockProvider; from providers.base import AIEngineProvider; assert isinstance(MockProvider(), AIEngineProvider)` succeeds.
+- **State**: [done]
+
+---
+
+## Feature: Phase 4A — AI engine probes
+
+- **Behavior**: `ai_engine_probe.py` runs each probe from `probes.yaml` against each configured AI engine. Caches per (engine, probe_id, ISO week). Detects brand mentions (reuses `source_analysis._find_brand()`), competitor mentions, and extracts cited URLs. Stores in `ae_probe_results` DuckDB table. Skips cleanly if `probes.yaml` is absent or no engine API keys are configured.
+- **Verification**: `make check` passes `tests/test_ai_engine_probe.py` (8 tests). `make dry-run-lido` shows "Phase 4A" in output.
+- **State**: [done]
+
+---
+
+## Feature: Phase 4B — Cross-reference
+
+- **Behavior**: `cross_reference.py` joins `citation_graph` × `source_analysis` × `ae_probe_results` (unnested cited URLs). Assigns `action_priority` (critical/high/medium/low) based on SERP score and AI-citation presence. Stores in `cross_reference` table. Zero API calls — pure Python + DuckDB.
+- **Verification**: `make check` passes `tests/test_cross_reference.py` (5 tests + 4 unit tests for `_priority`). `make dev-run-lido` (after Phase 4A) shows Phase 4B in output.
+- **State**: [done]
+
+---
+
+## Feature: AI visibility output
+
+- **Behavior**: `outputs.py` gains `write_ai_visibility_md()` producing `companies/{slug}/out/ai_visibility.md` with: share-of-voice table by engine, critical gap list (high-SERP AI-cited pages where brand is absent), and probe-by-probe engine breakdown. Writes a placeholder file if no probe data exists.
+- **Verification**: After `make dev-run-lido`, `companies/lido/out/ai_visibility.md` exists and is non-empty. `make check` passes.
+- **State**: [done]
+
+---
+
+## Feature: AI Engine Visibility dashboard tab
+
+- **Behavior**: Streamlit dashboard gains a 7th tab "AI Engine Visibility" showing: 4 metrics (engines probed, total probe runs, brand SOV %, critical gaps), share-of-voice bar chart by engine, cross-reference gap table with priority highlighting, and probe-by-probe detail expanders. `DB_PATH` is company-aware via `COMPANY_SLUG` env var.
+- **Verification**: `make dashboard-lido` starts without Python exception; all 7 tabs load in browser.
+- **State**: [done]

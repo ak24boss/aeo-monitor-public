@@ -1,0 +1,29 @@
+slug: lido
+company_name: "Lido"
+company_domain: "lido.app"
+contact_email: "alex@trylido.com"
+
+competitors:
+  # Core IDP / document extraction
+  - nanonets.com
+  - rossum.ai
+  - parseur.com
+  - reducto.ai
+  - docparser.com
+  - docsumo.com
+  - hyperscience.com
+  - instabase.com
+  - abbyy.com
+  - affinda.com
+  # AP automation (relevant for invoice-ocr / ap-automation verticals)
+  - tipalti.com
+  - bill.com
+  - ramp.com
+  # Legal (relevant for legal-doc vertical)
+  - kirasystems.com
+  - luminance.com
+  # Insurance (relevant for insurance-claims vertical)
+  - guidewire.com
+  - tungsten-network.com
+  # Logistics (relevant for logistics-doc vertical)
+  - transflo.com

@@ -3,6 +3,8 @@ from __future__ import annotations
 from datetime import datetime
 from typing import Optional
 
+from providers.base import ProviderResponse
+
 import pandas as pd
 
 
@@ -83,3 +85,42 @@ class FakeTrendReq:
             return {}
         kw = self._keywords[0]
         return {kw: {"rising": pd.DataFrame({"query": ["lido ocr", "lido excel"]})}}
+
+
+class FakeMockProvider:
+    """Provider that mentions the brand name in its response — tests mention detection."""
+
+    engine_name = "mock"
+
+    def __init__(self, brand_name: str = "Lido"):
+        self._brand_name = brand_name
+
+    def run(self, probe_text: str, probe_id: str) -> ProviderResponse:
+        return ProviderResponse(
+            engine="mock",
+            probe_id=probe_id,
+            response_text=(
+                f"{self._brand_name} is one of the leading tools for this use case. "
+                "See https://g2.com/lido and https://capterra.com/lido for reviews."
+            ),
+            cited_urls=["https://g2.com/lido", "https://capterra.com/lido"],
+            raw={"mock": True},
+        )
+
+
+class FakeSilentMockProvider:
+    """Provider that does NOT mention the brand — tests the absent-brand path."""
+
+    engine_name = "mock"
+
+    def run(self, probe_text: str, probe_id: str) -> ProviderResponse:
+        return ProviderResponse(
+            engine="mock",
+            probe_id=probe_id,
+            response_text=(
+                "nanonets and rossum are popular choices for document extraction. "
+                "See https://g2.com/nanonets and https://capterra.com for comparisons."
+            ),
+            cited_urls=["https://g2.com/nanonets", "https://capterra.com"],
+            raw={"mock": True},
+        )

@@ -37,6 +37,13 @@ def build_parser() -> argparse.ArgumentParser:
         metavar="N",
         help="Limit to first N queries (dev mode)",
     )
+    run_parser.add_argument(
+        "--company",
+        type=str,
+        default=None,
+        metavar="SLUG",
+        help="Company slug — loads from companies/{slug}/ instead of root company.yaml",
+    )
     return parser
 
 
@@ -49,6 +56,8 @@ def cmd_run(args) -> None:
     from citation_graph import run_citation_graph_phase
     from source_analysis import run_source_analysis_phase
     from ae_citations import run_ae_phase
+    from ai_engine_probe import run_ai_engine_probe_phase
+    from cross_reference import run_cross_reference_phase
     from trends import run_trends_phase
     from outputs import (
         write_citation_graph_csv,
@@ -56,6 +65,7 @@ def cmd_run(args) -> None:
         write_query_opportunities_csv,
         write_pain_language_md,
         write_weekly_diff_md,
+        write_ai_visibility_md,
     )
     from reporter import print_run_summary
     from utils import estimate_credit_cost
@@ -64,7 +74,7 @@ def cmd_run(args) -> None:
     skip_trends: bool = args.skip_trends
     run_date = date.today()
 
-    settings = load_settings(query_limit=args.queries)
+    settings = load_settings(query_limit=args.queries, company_slug=getattr(args, "company", None))
     log.info("Loaded %d queries", len(settings.queries))
 
     if dry_run:
@@ -112,6 +122,50 @@ def cmd_run(args) -> None:
         phases_skipped.append("ae_citations (no PERPLEXITY_API_KEY)")
     run_ae_phase(settings.queries, settings, conn, stats, run_date, dry_run=dry_run)
 
+    # Phase 4A — AI engine probes
+    if settings.probes:
+        from providers.perplexity import PerplexityProvider
+        from providers.claude import ClaudeProvider
+        from providers.openai_provider import OpenAIProvider
+
+        engine_map = {
+            "perplexity": lambda key: PerplexityProvider(key, settings.brand_domain),
+            "claude": lambda key: ClaudeProvider(key),
+            "openai": lambda key: OpenAIProvider(key),
+        }
+        active_providers = []
+        for engine, factory in engine_map.items():
+            key = settings.ai_engine_keys.get(engine)
+            if key:
+                active_providers.append(factory(key))
+            else:
+                phases_skipped.append(f"ai_probe/{engine} (no {engine.upper()}_API_KEY)")
+
+        log.info("Phase 4A: AI engine probes")
+        run_ai_engine_probe_phase(
+            probes=settings.probes,
+            providers=active_providers,
+            conn=conn,
+            company_name=settings.company_name,
+            competitors=settings.competitors,
+            cache_dir=settings.cache_dir,
+            stats=stats,
+            run_date=run_date,
+            dry_run=dry_run,
+        )
+
+        # Phase 4B — Cross-reference
+        log.info("Phase 4B: Cross-reference")
+        run_cross_reference_phase(
+            conn=conn,
+            run_date=run_date,
+            brand_domain=settings.brand_domain,
+            company_name=settings.company_name,
+            dry_run=dry_run,
+        )
+    else:
+        phases_skipped.append("ai_probes (no probes.yaml or empty probes list)")
+
     # Phase 5 — Trends
     log.info("Phase 5: Trends")
     if skip_trends:
@@ -132,6 +186,12 @@ def cmd_run(args) -> None:
                                       brand_domain=settings.brand_domain)
         write_pain_language_md(conn, run_date, settings.out_dir)
         write_weekly_diff_md(conn, run_date, settings.out_dir)
+        if settings.probes:
+            write_ai_visibility_md(
+                conn, run_date, settings.out_dir,
+                company_name=settings.company_name,
+                brand_domain=settings.brand_domain,
+            )
     else:
         phases_skipped.append("outputs (dry run)")
 

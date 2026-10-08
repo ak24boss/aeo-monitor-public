@@ -8,7 +8,9 @@ import duckdb
 
 from models import (
     AECitationRow,
+    AEProbeRow,
     CitationRow,
+    CrossReferenceRow,
     SerpResult,
     SourceAnalysisRow,
     TrendRow,
@@ -69,12 +71,51 @@ CREATE TABLE IF NOT EXISTS trend_data (
     rising_related TEXT,
     PRIMARY KEY (run_date, keyword, week)
 );
+
+CREATE TABLE IF NOT EXISTS ae_probe_results (
+    run_date DATE NOT NULL,
+    engine TEXT NOT NULL,
+    probe_id TEXT NOT NULL,
+    probe_text TEXT NOT NULL,
+    brand_mentioned BOOLEAN NOT NULL,
+    brand_context TEXT,
+    competitors_mentioned TEXT,
+    cited_urls TEXT,
+    cited_domains TEXT,
+    raw_response TEXT,
+    PRIMARY KEY (run_date, engine, probe_id)
+);
+
+CREATE TABLE IF NOT EXISTS cross_reference (
+    run_date DATE NOT NULL,
+    url TEXT NOT NULL,
+    domain TEXT NOT NULL,
+    serp_weighted_score DOUBLE NOT NULL,
+    serp_queries_appearing_in INTEGER NOT NULL,
+    engines_citing_url TEXT,
+    engine_citation_count INTEGER NOT NULL DEFAULT 0,
+    brand_mentioned_on_page BOOLEAN,
+    action_priority TEXT NOT NULL DEFAULT 'medium',
+    PRIMARY KEY (run_date, url)
+);
 """
 
 
 def get_connection(db_path: Path) -> duckdb.DuckDBPyConnection:
     conn = duckdb.connect(str(db_path))
     conn.execute(SCHEMA_SQL)
+    # Migrate ae_probe_results to add perturbation metadata columns
+    for col, default in [
+        ("seed_topic", "'general'"),
+        ("perturbation_class", "'seed'"),
+        ("perturbation_type", "'seed'"),
+    ]:
+        try:
+            conn.execute(
+                f"ALTER TABLE ae_probe_results ADD COLUMN IF NOT EXISTS {col} TEXT DEFAULT {default}"
+            )
+        except Exception:
+            pass
     return conn
 
 
@@ -178,3 +219,84 @@ def get_citation_graph_for_date(
     cols = ["run_date", "url", "domain", "domain_type", "weighted_score",
             "queries_appearing_in", "top_position"]
     return [CitationRow(**dict(zip(cols, r))) for r in rows]
+
+
+def insert_ae_probe_results(
+    conn: duckdb.DuckDBPyConnection, rows: list[AEProbeRow]
+) -> None:
+    if not rows:
+        return
+    conn.executemany(
+        """
+        INSERT OR REPLACE INTO ae_probe_results
+            (run_date, engine, probe_id, probe_text, brand_mentioned, brand_context,
+             competitors_mentioned, cited_urls, cited_domains, raw_response,
+             seed_topic, perturbation_class, perturbation_type)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        [
+            (
+                r.run_date, r.engine, r.probe_id, r.probe_text,
+                r.brand_mentioned, r.brand_context,
+                json.dumps(r.competitors_mentioned),
+                json.dumps(r.cited_urls),
+                json.dumps(r.cited_domains),
+                r.raw_response,
+                r.seed_topic, r.perturbation_class, r.perturbation_type,
+            )
+            for r in rows
+        ],
+    )
+
+
+def insert_cross_reference(
+    conn: duckdb.DuckDBPyConnection, rows: list[CrossReferenceRow]
+) -> None:
+    if not rows:
+        return
+    conn.executemany(
+        """
+        INSERT OR REPLACE INTO cross_reference
+            (run_date, url, domain, serp_weighted_score, serp_queries_appearing_in,
+             engines_citing_url, engine_citation_count, brand_mentioned_on_page, action_priority)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        """,
+        [
+            (
+                r.run_date, r.url, r.domain,
+                r.serp_weighted_score, r.serp_queries_appearing_in,
+                json.dumps(r.engines_citing_url),
+                r.engine_citation_count,
+                r.brand_mentioned_on_page,
+                r.action_priority,
+            )
+            for r in rows
+        ],
+    )
+
+
+def get_ai_visibility_summary(
+    conn: duckdb.DuckDBPyConnection, run_date: date
+):
+    """Return ae_probe_results rows for run_date as a list of dicts."""
+    rows = conn.execute(
+        """
+        SELECT engine, probe_id, probe_text, brand_mentioned,
+               brand_context, competitors_mentioned, cited_urls
+        FROM ae_probe_results
+        WHERE run_date = ?
+        ORDER BY engine, probe_id
+        """,
+        [run_date],
+    ).fetchall()
+    cols = [
+        "engine", "probe_id", "probe_text", "brand_mentioned",
+        "brand_context", "competitors_mentioned", "cited_urls",
+    ]
+    result = []
+    for r in rows:
+        d = dict(zip(cols, r))
+        d["competitors_mentioned"] = json.loads(d["competitors_mentioned"] or "[]")
+        d["cited_urls"] = json.loads(d["cited_urls"] or "[]")
+        result.append(d)
+    return result

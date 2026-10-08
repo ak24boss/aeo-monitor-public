@@ -1,0 +1,29 @@
+# AI engine probes for {Your Company}
+# These prompts are sent directly to AI engines (ChatGPT, Claude, Perplexity, etc.)
+# Write them the way a real buyer would phrase them — natural questions, not keywords.
+# Each probe needs a stable `id` (used as cache key — change it only if you want to bust cache).
+# Aim for 5-15 probes covering your strongest buying scenarios.
+
+probes:
+  - id: "best-tool-discovery"
+    text: "What is the best software for [your category]?"
+    intent: "tool discovery"
+    priority: high
+
+  - id: "vendor-comparison"
+    text: "Compare [Competitor A] vs [Competitor B] for [use case]"
+    intent: "vendor comparison"
+    priority: high
+
+  - id: "problem-aware"
+    text: "How do [your buyers] automate [the problem your product solves]?"
+    intent: "problem aware"
+    priority: medium
+
+# Which AI engines to probe.
+# Remove any engine you don't have an API key for.
+# Supported: perplexity, claude, openai
+engines:
+  - perplexity
+  - claude
+  - openai

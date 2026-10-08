@@ -1,0 +1,751 @@
+# Ambrook AI Engine Probes — Petra Labs Prompt Radius Taxonomy
+# 6 seed topics × 15 perturbation types = 90 probes
+# perturbation_class: seed | A (surface) | B (context) | C (intent)
+# priority: high (seed+C+key B) | medium (simplify+requirements+price-budget) | low (rest)
+#
+# Seed topics:
+#   1. farm-accounting        — "What farm accounting software should I use?"
+#   2. ranch-bookkeeping      — "What ranch bookkeeping software should I use?"
+#   3. trucking-accounting    — "What accounting software for owner-operator trucking should I use?"
+#   4. contractor-accounting  — "What job costing and accounting software should I use for my contracting business?"
+#   5. ag-financial-mgmt      — "What all-in-one financial management software should I use for my agriculture business?"
+#   6. quickbooks-alt-ag      — "What QuickBooks alternative should I use for my farm or ranch?"
+
+probes:
+
+  # ── SEED TOPIC 1: Farm Accounting ───────────────────────────────────────────
+
+  - id: "farm-acct-seed"
+    text: "What farm accounting software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "farm-accounting"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "farm-acct-typo"
+    text: "What farm acounting software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "farm-accounting"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "farm-acct-simplify"
+    text: "farm accounting software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "farm-accounting"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "farm-acct-recommend"
+    text: "Recommend farm accounting software."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "farm-accounting"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "farm-acct-best"
+    text: "What is the best farm accounting software?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "farm-accounting"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "farm-acct-spanish"
+    text: "¿Qué software de contabilidad agrícola debería usar?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "farm-accounting"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "farm-acct-persona-regulated"
+    text: "I run a multi-entity diversified farming operation with FSA operating loans and a CPA who needs lender-ready Schedule F reports. What farm accounting software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "farm-accounting"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "farm-acct-persona-casual"
+    text: "I just started a small vegetable farm and I'm trying to get my books in order for the first time. What farm accounting software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "farm-accounting"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "farm-acct-pain"
+    text: "I spend January through March drowning in shoeboxes of receipts and I have no idea which crops actually made money last season. What farm accounting software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "farm-accounting"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "farm-acct-competitor"
+    text: "What alternatives to QuickBooks should I use for farm accounting?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "farm-accounting"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "farm-acct-use-case"
+    text: "What farm accounting software should I use to track profitability by enterprise — corn, soybeans, hay, and custom work separately?"
+    intent: "use case"
+    priority: high
+    seed_topic: "farm-accounting"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "farm-acct-requirements"
+    text: "What farm accounting software should I use that has Schedule F categories, multi-entity support for multiple LLCs, and mobile receipt capture?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "farm-accounting"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "farm-acct-price-budget"
+    text: "What farm accounting software should I use on a tight budget for a small family farm?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "farm-accounting"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "farm-acct-price-premium"
+    text: "What farm accounting software should I use? We're a large diversified operation and need the most accurate reporting available — cost is secondary."
+    intent: "price premium"
+    priority: low
+    seed_topic: "farm-accounting"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "farm-acct-how-to"
+    text: "How do I set up farm bookkeeping software that tracks profitability by enterprise and generates lender-ready reports?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "farm-accounting"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 2: Ranch Bookkeeping ─────────────────────────────────────────
+
+  - id: "ranch-bk-seed"
+    text: "What ranch bookkeeping software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "ranch-bk-typo"
+    text: "What ranch bookeping software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "ranch-bk-simplify"
+    text: "ranch bookkeeping software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "ranch-bk-recommend"
+    text: "Recommend ranch bookkeeping software."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "ranch-bk-best"
+    text: "What is the best ranch bookkeeping software?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "ranch-bk-spanish"
+    text: "¿Qué software de contabilidad para ranchos debería usar?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "ranch-bk-persona-regulated"
+    text: "I am a sixth-generation cow-calf rancher with an operating line of credit and a banker who needs a current balance sheet every quarter. What ranch bookkeeping software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "ranch-bk-persona-casual"
+    text: "I just bought my first 200 acres and I'm running stocker cattle for the first time. What ranch bookkeeping software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "ranch-bk-pain"
+    text: "Year-end reconciliation takes me a full week in QuickBooks and I still don't know my breakeven per hundredweight. What ranch bookkeeping software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "ranch-bk-competitor"
+    text: "What alternatives to Harvest Profit should I use for ranch bookkeeping and profitability tracking?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "ranch-bk-use-case"
+    text: "What ranch bookkeeping software should I use to track cost per head across cow-calf, stockers, and custom grazing enterprises separately?"
+    intent: "use case"
+    priority: high
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "ranch-bk-requirements"
+    text: "What ranch bookkeeping software should I use that handles livestock inventory (calves born, feed used), integrates with my existing bank, and works from the pasture on my phone?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "ranch-bk-price-budget"
+    text: "What ranch bookkeeping software should I use on a small-operation budget?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "ranch-bk-price-premium"
+    text: "What is the best ranch bookkeeping software? I run a large multi-entity cattle operation and I need the most complete financial picture available."
+    intent: "price premium"
+    priority: low
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "ranch-bk-how-to"
+    text: "How do I set up bookkeeping for a cattle ranch that tracks cost per head and generates lender-ready reports?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "ranch-bookkeeping"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 3: Trucking Accounting ────────────────────────────────────────
+
+  - id: "truck-acct-seed"
+    text: "What accounting software for owner-operator trucking should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "trucking-accounting"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "truck-acct-typo"
+    text: "What accounting software for owner-opertor trucking should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "trucking-accounting"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "truck-acct-simplify"
+    text: "owner-operator trucking accounting software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "trucking-accounting"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "truck-acct-recommend"
+    text: "Recommend accounting software for owner-operator truckers."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "trucking-accounting"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "truck-acct-best"
+    text: "What is the best accounting software for trucking owner-operators?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "trucking-accounting"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "truck-acct-spanish"
+    text: "¿Qué software de contabilidad debería usar para camioneros independientes?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "trucking-accounting"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "truck-acct-persona-regulated"
+    text: "I am an owner-operator running three trucks with Schedule C requirements and I need to know my true cost per mile on every load. What accounting software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "trucking-accounting"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "truck-acct-persona-casual"
+    text: "I just bought my first truck and I'm trying to figure out how to keep the books from the cab. What trucking accounting software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "trucking-accounting"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "truck-acct-pain"
+    text: "I lose fuel receipts in the cab constantly and I have no idea if I'm actually making money on certain lanes. What accounting software for trucking should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "trucking-accounting"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "truck-acct-competitor"
+    text: "What alternatives to QuickBooks should I use for trucking owner-operator accounting?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "trucking-accounting"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "truck-acct-use-case"
+    text: "What accounting software for trucking should I use to track profitability by route and customer and capture receipts from the road?"
+    intent: "use case"
+    priority: high
+    seed_topic: "trucking-accounting"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "truck-acct-requirements"
+    text: "What trucking accounting software should I use that has mobile receipt capture, Schedule C expense categories, and invoicing for shippers?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "trucking-accounting"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "truck-acct-price-budget"
+    text: "What accounting software for owner-operator trucking should I use on a tight budget?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "trucking-accounting"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "truck-acct-price-premium"
+    text: "What is the most complete accounting software for a small trucking fleet? Price is not a concern — I need accurate per-truck profitability."
+    intent: "price premium"
+    priority: low
+    seed_topic: "trucking-accounting"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "truck-acct-how-to"
+    text: "How do I set up accounting for my trucking business to track cost per mile and profitability by route without hauling blind?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "trucking-accounting"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 4: Contractor Accounting ──────────────────────────────────────
+
+  - id: "contractor-acct-seed"
+    text: "What job costing and accounting software should I use for my contracting business?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "contractor-accounting"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "contractor-acct-typo"
+    text: "What job cosing and accounting software should I use for my contracting business?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "contractor-accounting"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "contractor-acct-simplify"
+    text: "job costing software for contractors"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "contractor-accounting"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "contractor-acct-recommend"
+    text: "Recommend job costing and accounting software for small contractors."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "contractor-accounting"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "contractor-acct-best"
+    text: "What is the best accounting software for small general contractors?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "contractor-accounting"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "contractor-acct-spanish"
+    text: "¿Qué software de contabilidad y costos de proyectos debería usar para mi negocio de construcción?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "contractor-accounting"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "contractor-acct-persona-regulated"
+    text: "I am a licensed general contractor managing multiple job sites with 1099 subcontractors and I need to know daily margins per job. What accounting software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "contractor-accounting"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "contractor-acct-persona-casual"
+    text: "I just started a small excavation business and I'm doing the books in spreadsheets. What contractor accounting software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "contractor-accounting"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "contractor-acct-pain"
+    text: "I keep finding out a job lost money after it's done. I have receipts from crews sitting in text messages and I can't tell which projects are profitable. What accounting software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "contractor-accounting"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "contractor-acct-competitor"
+    text: "What alternatives to QuickBooks should I use for contractor job costing and bookkeeping?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "contractor-accounting"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "contractor-acct-use-case"
+    text: "What contractor accounting software should I use to track profit per job, pay subcontractors, and handle estimates through invoicing in one system?"
+    intent: "use case"
+    priority: high
+    seed_topic: "contractor-accounting"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "contractor-acct-requirements"
+    text: "What accounting software for contractors should I use that has estimate-to-invoice, team expense cards, 1099 tracking, and mobile receipt capture?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "contractor-accounting"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "contractor-acct-price-budget"
+    text: "What job costing and accounting software should I use on a budget for a small contracting business?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "contractor-accounting"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "contractor-acct-price-premium"
+    text: "What is the most complete accounting software for a mid-size contracting firm? We need accurate job costing and we'll pay for it."
+    intent: "price premium"
+    priority: low
+    seed_topic: "contractor-accounting"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "contractor-acct-how-to"
+    text: "How do I set up job costing and bookkeeping for my contracting business so I know which jobs make money before I bid the next one?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "contractor-accounting"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 5: Ag Financial Management ────────────────────────────────────
+
+  - id: "ag-fin-seed"
+    text: "What all-in-one financial management software should I use for my agriculture business?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "ag-fin-typo"
+    text: "What all-in-one financial managment software should I use for my agriculture business?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "ag-fin-simplify"
+    text: "agriculture financial management software"
+    intent: "tool discovery"
+    priority: medium
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "ag-fin-recommend"
+    text: "Recommend all-in-one financial software for agriculture businesses."
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "ag-fin-best"
+    text: "What is the best all-in-one financial software for farms and ranches?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "ag-fin-spanish"
+    text: "¿Qué software de gestión financiera integral debería usar para mi negocio agrícola?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "ag-fin-persona-regulated"
+    text: "I run three LLCs — a farm, a trucking company, and a rental property — and I need consolidated financials, separate ledgers, and lender-ready reports for each. What financial management software should I use?"
+    intent: "tool discovery"
+    priority: high
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "ag-fin-persona-casual"
+    text: "I'm a farmer who's also doing some custom work and renting a few bins. I want one place to manage all of it. What financial software should I use?"
+    intent: "tool discovery"
+    priority: low
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "ag-fin-pain"
+    text: "I have QuickBooks for my farm LLC, Quicken for another company, and a spreadsheet for a third — and I still can't see the whole picture. What financial management software should I use?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "ag-fin-competitor"
+    text: "What alternatives to Granular should I use for whole-farm financial management and bookkeeping?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "ag-fin-use-case"
+    text: "What financial management software should I use to run enterprise P&Ls across farming, ranching, and trucking operations under one family business?"
+    intent: "use case"
+    priority: high
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "ag-fin-requirements"
+    text: "What ag financial software should I use that has multi-entity support, integrated invoicing and bill pay, team debit cards, and a mobile app that works in the field?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "ag-fin-price-budget"
+    text: "What all-in-one financial software for agriculture should I use on a small-operation budget?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "ag-fin-price-premium"
+    text: "What is the most complete financial management platform for a large diversified agricultural operation? Cost is not a concern."
+    intent: "price premium"
+    priority: low
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "ag-fin-how-to"
+    text: "How do I set up one financial system for a diversified agricultural business that runs farming, trucking, and rental operations under separate LLCs?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "ag-financial-mgmt"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+  # ── SEED TOPIC 6: QuickBooks Alternative for Ag ──────────────────────────────
+
+  - id: "qb-alt-seed"
+    text: "What QuickBooks alternative should I use for my farm or ranch?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "seed"
+    perturbation_type: "seed"
+
+  - id: "qb-alt-typo"
+    text: "What QuickBooks alternativ should I use for my farm or ranch?"
+    intent: "competitor displacement"
+    priority: low
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "A"
+    perturbation_type: "typo"
+
+  - id: "qb-alt-simplify"
+    text: "QuickBooks alternative for farms"
+    intent: "competitor displacement"
+    priority: medium
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "A"
+    perturbation_type: "simplify"
+
+  - id: "qb-alt-recommend"
+    text: "Recommend a QuickBooks alternative for agricultural businesses."
+    intent: "competitor displacement"
+    priority: low
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "A"
+    perturbation_type: "recommend"
+
+  - id: "qb-alt-best"
+    text: "What is the best QuickBooks alternative for farmers and ranchers?"
+    intent: "competitor displacement"
+    priority: low
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "A"
+    perturbation_type: "best"
+
+  - id: "qb-alt-spanish"
+    text: "¿Qué alternativa a QuickBooks debería usar para mi granja o rancho?"
+    intent: "competitor displacement"
+    priority: low
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "A"
+    perturbation_type: "spanish"
+
+  - id: "qb-alt-persona-regulated"
+    text: "I've been using QuickBooks for my farm but it wasn't built for agriculture — I need enterprise P&Ls, Schedule F, and something that doesn't require an accountant just to set up. What QuickBooks alternative should I use?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "B"
+    perturbation_type: "persona-regulated"
+
+  - id: "qb-alt-persona-casual"
+    text: "I've been told QuickBooks is overkill for my small farm. What simpler alternative should I use instead?"
+    intent: "competitor displacement"
+    priority: low
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "B"
+    perturbation_type: "persona-casual"
+
+  - id: "qb-alt-pain"
+    text: "I'm paying $80/month for QuickBooks plus extra for classes, I need a 5-hour tutorial just to use it, and it still doesn't have built-in Schedule F. What QuickBooks alternative should I use for my farm?"
+    intent: "problem aware"
+    priority: high
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "B"
+    perturbation_type: "pain"
+
+  - id: "qb-alt-competitor"
+    text: "What is the best accounting software for farmers that competes directly with QuickBooks Online?"
+    intent: "competitor displacement"
+    priority: high
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "B"
+    perturbation_type: "competitor"
+
+  - id: "qb-alt-use-case"
+    text: "What QuickBooks alternative should I use for a farm that needs free enterprise tracking, mobile receipt capture, and Schedule F without add-ons?"
+    intent: "use case"
+    priority: high
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "B"
+    perturbation_type: "use-case"
+
+  - id: "qb-alt-requirements"
+    text: "What QuickBooks alternative for agriculture should I use that has multi-entity, integrated banking, and lender-ready reports without needing a bookkeeper to run it?"
+    intent: "requirements"
+    priority: medium
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "B"
+    perturbation_type: "requirements"
+
+  - id: "qb-alt-price-budget"
+    text: "What is a cheaper QuickBooks alternative for a small farm or ranch?"
+    intent: "price sensitive"
+    priority: medium
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "B"
+    perturbation_type: "price-budget"
+
+  - id: "qb-alt-price-premium"
+    text: "What QuickBooks alternative for agriculture offers the most complete financial management? I'll pay more if it's genuinely built for my operation."
+    intent: "price premium"
+    priority: low
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "B"
+    perturbation_type: "price-premium"
+
+  - id: "qb-alt-how-to"
+    text: "How do I switch from QuickBooks to an accounting platform that's actually built for farms and ranches?"
+    intent: "how-to"
+    priority: high
+    seed_topic: "quickbooks-alt-ag"
+    perturbation_class: "C"
+    perturbation_type: "how-to"
+
+engines:
+  - perplexity
+  - claude
+  - openai

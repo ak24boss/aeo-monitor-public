@@ -1,0 +1,253 @@
+categories:
+
+  # ── General ag/rural accounting discovery ──────────────────────────────────
+  commercial:
+    - text: "best farm accounting software"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: high
+    - text: "agricultural accounting software"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: high
+    - text: "best bookkeeping software for small farms"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: high
+    - text: "farm financial management software"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: high
+    - text: "Schedule F bookkeeping software"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: high
+    - text: "all-in-one accounting software for agriculture"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: high
+    - text: "rural business accounting software"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: medium
+    - text: "accounting software for independent businesses"
+      intent: "tool discovery"
+      vertical: "general"
+      priority: medium
+
+  # ── Competitor alternatives ────────────────────────────────────────────────
+  alternatives:
+    - text: "QuickBooks alternative for farmers"
+      intent: "comparison"
+      vertical: "farming"
+      priority: high
+    - text: "QuickBooks alternative for ranchers"
+      intent: "comparison"
+      vertical: "ranching"
+      priority: high
+    - text: "QuickBooks alternative for trucking owner-operator"
+      intent: "comparison"
+      vertical: "trucking"
+      priority: high
+    - text: "best QuickBooks alternative for agriculture"
+      intent: "comparison"
+      vertical: "farming"
+      priority: high
+    - text: "QuickBooks alternative for contractors"
+      intent: "comparison"
+      vertical: "construction"
+      priority: high
+    - text: "Harvest Profit alternatives"
+      intent: "comparison"
+      vertical: "farming"
+      priority: medium
+    - text: "Granular alternatives for farm bookkeeping"
+      intent: "comparison"
+      vertical: "farming"
+      priority: medium
+    - text: "FarmBooks alternatives"
+      intent: "comparison"
+      vertical: "farming"
+      priority: medium
+    - text: "Xero alternative for farms and ranches"
+      intent: "comparison"
+      vertical: "farming"
+      priority: medium
+
+  # ── Problem-aware ─────────────────────────────────────────────────────────
+  problem_aware:
+    - text: "how to track cost per acre farming"
+      intent: "use case"
+      vertical: "farming"
+      priority: high
+    - text: "how to track cost per head cattle"
+      intent: "use case"
+      vertical: "ranching"
+      priority: high
+    - text: "how to know which enterprise makes money on my farm"
+      intent: "use case"
+      vertical: "farming"
+      priority: high
+    - text: "how to do farm bookkeeping without QuickBooks"
+      intent: "use case"
+      vertical: "farming"
+      priority: medium
+    - text: "how to keep books for multiple farm LLCs"
+      intent: "use case"
+      vertical: "farming"
+      priority: medium
+    - text: "how to get lender-ready farm financial reports"
+      intent: "use case"
+      vertical: "farming"
+      priority: medium
+    - text: "how to track farm expenses and income by enterprise"
+      intent: "use case"
+      vertical: "farming"
+      priority: medium
+
+  # ── Farming vertical ──────────────────────────────────────────────────────
+  vertical_farming:
+    - text: "farm accounting software Schedule F"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: high
+    - text: "crop farm bookkeeping software"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: high
+    - text: "farm enterprise tracking software"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: high
+    - text: "diversified farm P&L software"
+      intent: "use case"
+      vertical: "farming"
+      priority: high
+    - text: "farm grant tracking software"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: medium
+    - text: "CSA farm accounting software"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: medium
+    - text: "agritourism bookkeeping software"
+      intent: "tool discovery"
+      vertical: "farming"
+      priority: medium
+    - text: "cost of production per acre software"
+      intent: "use case"
+      vertical: "farming"
+      priority: medium
+
+  # ── Ranching vertical ─────────────────────────────────────────────────────
+  vertical_ranching:
+    - text: "ranch accounting software"
+      intent: "tool discovery"
+      vertical: "ranching"
+      priority: high
+    - text: "cattle ranch bookkeeping software"
+      intent: "tool discovery"
+      vertical: "ranching"
+      priority: high
+    - text: "cow-calf operation accounting software"
+      intent: "tool discovery"
+      vertical: "ranching"
+      priority: high
+    - text: "cost per head cattle tracking software"
+      intent: "use case"
+      vertical: "ranching"
+      priority: high
+    - text: "ranch inventory and bookkeeping software"
+      intent: "tool discovery"
+      vertical: "ranching"
+      priority: high
+    - text: "livestock enterprise P&L software"
+      intent: "use case"
+      vertical: "ranching"
+      priority: medium
+    - text: "feedlot accounting software"
+      intent: "tool discovery"
+      vertical: "ranching"
+      priority: medium
+    - text: "stocker cattle bookkeeping software"
+      intent: "tool discovery"
+      vertical: "ranching"
+      priority: low
+
+  # ── Trucking vertical ─────────────────────────────────────────────────────
+  vertical_trucking:
+    - text: "owner-operator trucking accounting software"
+      intent: "tool discovery"
+      vertical: "trucking"
+      priority: high
+    - text: "trucking bookkeeping software Schedule C"
+      intent: "tool discovery"
+      vertical: "trucking"
+      priority: high
+    - text: "cost per mile tracking software for truckers"
+      intent: "use case"
+      vertical: "trucking"
+      priority: high
+    - text: "trucking expense tracking app"
+      intent: "tool discovery"
+      vertical: "trucking"
+      priority: medium
+    - text: "small fleet accounting software"
+      intent: "tool discovery"
+      vertical: "trucking"
+      priority: medium
+
+  # ── Construction/contractor vertical ──────────────────────────────────────
+  vertical_construction:
+    - text: "job costing software for contractors"
+      intent: "tool discovery"
+      vertical: "construction"
+      priority: high
+    - text: "construction bookkeeping software for small contractors"
+      intent: "tool discovery"
+      vertical: "construction"
+      priority: high
+    - text: "contractor accounting software with invoicing"
+      intent: "tool discovery"
+      vertical: "construction"
+      priority: high
+    - text: "subcontractor accounting software"
+      intent: "tool discovery"
+      vertical: "construction"
+      priority: medium
+    - text: "GC job profitability tracking software"
+      intent: "use case"
+      vertical: "construction"
+      priority: medium
+    - text: "contractor expense tracking with team cards"
+      intent: "use case"
+      vertical: "construction"
+      priority: medium
+
+  # ── Workflow / integration ────────────────────────────────────────────────
+  workflow:
+    - text: "farm accounting software with mobile app"
+      intent: "workflow"
+      vertical: "farming"
+      priority: medium
+    - text: "accounting software with AI receipt scanning for farmers"
+      intent: "workflow"
+      vertical: "farming"
+      priority: medium
+    - text: "farm accounting software with bank feed"
+      intent: "workflow"
+      vertical: "farming"
+      priority: medium
+    - text: "ag accounting software multi-entity"
+      intent: "workflow"
+      vertical: "farming"
+      priority: medium
+    - text: "farm accounting software with CPA access"
+      intent: "workflow"
+      vertical: "farming"
+      priority: low
+    - text: "ag bookkeeping software with invoicing and bill pay"
+      intent: "workflow"
+      vertical: "general"
+      priority: low
