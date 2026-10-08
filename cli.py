@@ -125,13 +125,15 @@ def cmd_run(args) -> None:
     # Phase 4A — AI engine probes
     if settings.probes:
         from providers.perplexity import PerplexityProvider
-        from providers.claude import ClaudeProvider
+        from providers.claude import GeminiProvider
         from providers.openai_provider import OpenAIProvider
+        from providers.google_ai_overview import GoogleAIOverviewProvider
 
         engine_map = {
             "perplexity": lambda key: PerplexityProvider(key, settings.brand_domain),
-            "claude": lambda key: ClaudeProvider(key),
-            "openai": lambda key: OpenAIProvider(key),
+            "gemini": lambda key: GeminiProvider(key, settings.brand_domain),
+            "openai": lambda key: OpenAIProvider(key, settings.brand_domain),
+            "google": lambda key: GoogleAIOverviewProvider(key, settings.brand_domain),
         }
         active_providers = []
         for engine, factory in engine_map.items():

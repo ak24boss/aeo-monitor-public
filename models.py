@@ -94,6 +94,7 @@ class AEProbeRow(BaseModel):
     competitors_mentioned: list[str] = []
     cited_urls: list[str] = []
     cited_domains: list[str] = []
+    sponsored_domains: list[str] = []  # domains appearing in paid ad slots
     raw_response: Optional[str] = None
     seed_topic: str = "general"
     perturbation_class: str = "seed"

@@ -1,20 +1,21 @@
 from __future__ import annotations
 import logging
-import re
 
 import httpx
 
 from providers.base import ProviderResponse
+from providers.citations import extract_citations
 
 log = logging.getLogger(__name__)
 
 _OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
-_URL_RE = re.compile(r"https?://[^\s\)\]\"'<>]+")
-_DEFAULT_MODEL = "anthropic/claude-sonnet-4-5"
+# Gemini with search grounding gives live-retrieval AEO data comparable to
+# Perplexity sonar. The engine is still stored as "gemini" in the DB.
+_DEFAULT_MODEL = "google/gemini-2.0-flash-001"
 
 
-class ClaudeProvider:
-    engine_name = "claude"
+class GeminiProvider:
+    engine_name = "gemini"
 
     def __init__(self, api_key: str, brand_domain: str = ""):
         self._api_key = api_key
@@ -35,10 +36,10 @@ class ClaudeProvider:
         data = resp.json()
 
         response_text = data.get("choices", [{}])[0].get("message", {}).get("content", "")
-        cited_urls = list(dict.fromkeys(_URL_RE.findall(response_text)))
+        cited_urls = extract_citations(data)
 
         return ProviderResponse(
-            engine="claude",
+            engine="gemini",
             probe_id=probe_id,
             response_text=response_text,
             cited_urls=cited_urls,

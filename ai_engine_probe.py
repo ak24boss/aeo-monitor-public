@@ -77,10 +77,13 @@ def run_ai_engine_probe_phase(
 
             text = probe_resp.response_text if hasattr(probe_resp, "response_text") else probe_resp.get("response_text", "")
             cited_urls = probe_resp.cited_urls if hasattr(probe_resp, "cited_urls") else probe_resp.get("cited_urls", [])
+            raw = probe_resp.raw if hasattr(probe_resp, "raw") else probe_resp.get("raw", {})
 
             brand_mentioned, brand_context = _find_brand(text, company_name)
             competitors_found = _find_competitors(text, competitors)
             cited_domains = [_domain(u) for u in cited_urls if u]
+            # Google provider embeds ad slot domains in raw["_ads_domains"]
+            sponsored_domains = raw.get("_ads_domains", []) if isinstance(raw, dict) else []
 
             row = AEProbeRow(
                 run_date=run_date,
@@ -92,18 +95,17 @@ def run_ai_engine_probe_phase(
                 competitors_mentioned=competitors_found,
                 cited_urls=cited_urls,
                 cited_domains=cited_domains,
-                raw_response=json.dumps(
-                    probe_resp.raw if hasattr(probe_resp, "raw") else probe_resp.get("raw", {})
-                ),
+                sponsored_domains=sponsored_domains,
+                raw_response=json.dumps(raw),
                 seed_topic=probe.seed_topic,
                 perturbation_class=probe.perturbation_class,
                 perturbation_type=probe.perturbation_type,
             )
             rows.append(row)
             log.info(
-                "Phase 4A: %s / %s — brand=%s, competitors=%s, citations=%d",
+                "Phase 4A: %s / %s — brand=%s, competitors=%s, citations=%d, sponsored=%s",
                 provider.engine_name, probe.id,
-                brand_mentioned, competitors_found, len(cited_urls),
+                brand_mentioned, competitors_found, len(cited_urls), sponsored_domains,
             )
 
     insert_ae_probe_results(conn, rows)

@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS ae_probe_results (
     competitors_mentioned TEXT,
     cited_urls TEXT,
     cited_domains TEXT,
+    sponsored_domains TEXT,
     raw_response TEXT,
     PRIMARY KEY (run_date, engine, probe_id)
 );
@@ -109,6 +110,7 @@ def get_connection(db_path: Path) -> duckdb.DuckDBPyConnection:
         ("seed_topic", "'general'"),
         ("perturbation_class", "'seed'"),
         ("perturbation_type", "'seed'"),
+        ("sponsored_domains", "NULL"),
     ]:
         try:
             conn.execute(
@@ -230,9 +232,9 @@ def insert_ae_probe_results(
         """
         INSERT OR REPLACE INTO ae_probe_results
             (run_date, engine, probe_id, probe_text, brand_mentioned, brand_context,
-             competitors_mentioned, cited_urls, cited_domains, raw_response,
-             seed_topic, perturbation_class, perturbation_type)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+             competitors_mentioned, cited_urls, cited_domains, sponsored_domains,
+             raw_response, seed_topic, perturbation_class, perturbation_type)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         """,
         [
             (
@@ -241,6 +243,7 @@ def insert_ae_probe_results(
                 json.dumps(r.competitors_mentioned),
                 json.dumps(r.cited_urls),
                 json.dumps(r.cited_domains),
+                json.dumps(r.sponsored_domains),
                 r.raw_response,
                 r.seed_topic, r.perturbation_class, r.perturbation_type,
             )

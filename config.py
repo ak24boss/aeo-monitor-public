@@ -154,10 +154,15 @@ def _load_ai_engine_keys(perplexity_key: Optional[str]) -> dict[str, str]:
     openrouter_key = os.getenv("OPENROUTER_API_KEY") or perplexity_key or None
 
     keys: dict[str, str] = {}
-    for engine in ("perplexity", "claude", "openai"):
-        env_var = f"{engine.upper()}_API_KEY"
-        specific = os.getenv(env_var)
+    # "gemini" uses the shared OpenRouter key (same as perplexity/openai).
+    # CLAUDE_API_KEY is kept as an alias for the gemini slot for backward compat.
+    for engine in ("perplexity", "gemini", "openai"):
+        specific = os.getenv(f"{engine.upper()}_API_KEY") or os.getenv("CLAUDE_API_KEY") if engine == "gemini" else os.getenv(f"{engine.upper()}_API_KEY")
         resolved = specific or openrouter_key
         if resolved:
             keys[engine] = resolved
+    # "google" uses ValueSERP — separate API, not OpenRouter.
+    valueserp_key = os.getenv("VALUESERP_KEY")
+    if valueserp_key:
+        keys["google"] = valueserp_key
     return keys

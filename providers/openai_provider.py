@@ -1,16 +1,17 @@
 from __future__ import annotations
 import logging
-import re
 
 import httpx
 
 from providers.base import ProviderResponse
+from providers.citations import extract_citations
 
 log = logging.getLogger(__name__)
 
 _OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
-_URL_RE = re.compile(r"https?://[^\s\)\]\"'<>]+")
-_DEFAULT_MODEL = "openai/gpt-4o-mini"
+# gpt-4o-search-preview performs live web retrieval and cites sources,
+# matching the AEO-monitoring behaviour of perplexity/sonar.
+_DEFAULT_MODEL = "openai/gpt-4o-search-preview"
 
 
 class OpenAIProvider:
@@ -35,7 +36,7 @@ class OpenAIProvider:
         data = resp.json()
 
         response_text = data.get("choices", [{}])[0].get("message", {}).get("content", "")
-        cited_urls = list(dict.fromkeys(_URL_RE.findall(response_text)))
+        cited_urls = extract_citations(data)
 
         return ProviderResponse(
             engine="openai",
