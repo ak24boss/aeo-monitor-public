@@ -34,7 +34,17 @@ class GoogleAIOverviewProvider:
             "output": "json",
             "include_ai_overview": "true",
         }
-        resp = httpx.get(_VALUESERP_URL, params=params, timeout=60)
+        # AI Overview rendering takes longer than a standard SERP request.
+        # Retry once on timeout before giving up.
+        for attempt in range(2):
+            try:
+                resp = httpx.get(_VALUESERP_URL, params=params, timeout=90)
+                break
+            except httpx.TimeoutException:
+                if attempt == 0:
+                    log.warning("Phase 4A: google / %s — timeout, retrying", probe_id)
+                else:
+                    raise
         resp.raise_for_status()
         data = resp.json()
 

@@ -49,13 +49,13 @@ BRAND_SLUG: str = BRAND_DOMAIN.split(".")[0]
 COMPETITORS: list[str] = [d.split(".")[0] for d in _company.get("competitors", [])]
 
 DOMAIN_COLORS = {
-    "review_platform": "#6366f1",
-    "listicle": "#f59e0b",
-    "competitor_owned": "#ef4444",
-    "reddit_forum": "#ff6314",
+    "review_platform": "#4B5340",    # olive-drab
+    "listicle": "#E09A3F",           # harvest-amber
+    "competitor_owned": "#ef4444",   # red (warning)
+    "reddit_forum": "#ff6314",       # orange
     "vendor_neutral_media": "#10b981",
-    "brand_owned": "#3b82f6",
-    "other": "#6b7280",
+    "brand_owned": "#E09A3F",        # harvest-amber
+    "other": "#362C24",              # bark-brown
 }
 
 MECHANISM = {
@@ -287,7 +287,7 @@ def page_overview(run_date):
             domain_counts = ae.groupby("cited_domain").size().reset_index(name="citations")
             domain_counts = domain_counts.sort_values("citations", ascending=False).head(12)
             domain_counts["is_brand"] = domain_counts["cited_domain"].str.contains(BRAND_SLUG, case=False)
-            colors = ["#3b82f6" if x else "#e2e8f0" for x in domain_counts["is_brand"]]
+            colors = ["#E09A3F" if x else "#DFD9CE" for x in domain_counts["is_brand"]]
             fig2 = go.Figure(go.Bar(
                 x=domain_counts["citations"],
                 y=domain_counts["cited_domain"],
@@ -326,7 +326,7 @@ def page_overview(run_date):
     fig3 = px.bar(
         cat_counts.sort_values("queries", ascending=True),
         x="queries", y="category_label", orientation="h",
-        color_discrete_sequence=["#6366f1"],
+        color_discrete_sequence=["#4B5340"],
         labels={"queries": "Queries", "category_label": ""},
         height=max(300, len(cat_counts) * 25),
     )
@@ -500,7 +500,7 @@ def page_ae_citations(run_date):
         domain_df["is_brand"] = domain_df["cited_domain"].str.contains(BRAND_SLUG, case=False)
         domain_df["avg_position"] = domain_df["avg_position"].round(1)
 
-        colors = ["#3b82f6" if x else "#94a3b8" for x in domain_df["is_brand"]]
+        colors = ["#E09A3F" if x else "#DFD9CE" for x in domain_df["is_brand"]]
         fig = go.Figure(go.Bar(
             x=domain_df["citations"],
             y=domain_df["cited_domain"],
@@ -543,7 +543,7 @@ def page_ae_citations(run_date):
         pos_counts.columns = ["position", "count"]
         pos_counts = pos_counts.sort_values("position")
         fig2 = px.bar(pos_counts, x="position", y="count",
-                      color_discrete_sequence=["#3b82f6"],
+                      color_discrete_sequence=["#E09A3F"],
                       labels={"position": "Position in citation list", "count": "Frequency"},
                       title=f"Where {COMPANY_NAME} appears in Perplexity citation lists")
         st.plotly_chart(fig2, use_container_width=True)
@@ -596,7 +596,7 @@ def page_serp(run_date):
 
     for _, row in q_df.iterrows():
         is_brand = BRAND_SLUG in str(row["domain"]).lower()
-        border = "border-left: 4px solid #3b82f6; padding-left: 10px;" if is_brand else ""
+        border = "border-left: 4px solid #E09A3F; padding-left: 10px;" if is_brand else ""
         cg_row = cg[cg["url"] == row["url"]]
         score_str = f" — citation score: {cg_row['weighted_score'].values[0]:.2f}" if not cg_row.empty else ""
 
@@ -727,7 +727,7 @@ _PT_CLASS = {
     "persona-casual": "B", "price-premium": "B", "seed": "seed",
     "simplify": "A", "best": "A", "recommend": "A", "spanish": "A", "typo": "A",
 }
-_CLASS_COLOR = {"C": "#6366f1", "B": "#3b82f6", "seed": "#10b981", "A": "#94a3b8"}
+_CLASS_COLOR = {"C": "#4B5340", "B": "#E09A3F", "seed": "#10b981", "A": "#362C24"}
 
 _REVIEW_PLATFORMS = {"g2.com", "learn.g2.com", "capterra.com", "gartner.com", "trustpilot.com",
                      "getapp.com", "trustradius.com", "software-advice.com", "peer.gartner.com",
@@ -755,12 +755,12 @@ def _classify_domain(domain: str, brand_domain: str, competitor_domains: list[st
 
 
 _DOMAIN_TYPE_COLORS = {
-    "brand": "#3b82f6",
-    "review platform": "#10b981",
+    "brand": "#E09A3F",
+    "review platform": "#4B5340",
     "community": "#f59e0b",
     "competitor": "#ef4444",
     "tech media": "#8b5cf6",
-    "general web": "#94a3b8",
+    "general web": "#362C24",
 }
 
 _TOPIC_LABEL = {
@@ -785,7 +785,7 @@ def _compute_visibility_score(probes_df: pd.DataFrame, engines: list[str]) -> tu
     - Vertical breadth (25%): % of seed topics with ≥1 brand mention
     - High-movement class coverage (15%): mention rate across Class B + C probes (Petra Labs WJD 0.80/0.97)
     """
-    engine_weights = {"perplexity": 0.40, "openai": 0.35, "claude": 0.25}
+    engine_weights = {"perplexity": 0.30, "openai": 0.30, "gemini": 0.25, "google": 0.15, "claude": 0.25}
 
     eng_sov = 0.0
     for eng in engines:
@@ -953,12 +953,13 @@ def page_ai_engine_visibility(run_date):
                 unsafe_allow_html=True,
             )
 
-    tab1, tab2, tab3, tab4, tab5 = st.tabs([
+    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
         "📊 Overview",
         "🔥 Prompt Heatmap",
         "🌐 Citation Space",
         "⚔️ Competitive",
         "🎯 Opportunities",
+        "📢 Sponsored Ads",
     ])
 
     # ── Tab 1: Overview ────────────────────────────────────────────────────────
@@ -1061,7 +1062,9 @@ def page_ai_engine_visibility(run_date):
             engine_colors_trend = {
                 "perplexity": "#8b5cf6",
                 "openai": "#10b981",
-                "claude": "#f59e0b",
+                "gemini": "#E09A3F",
+                "google": "#4B5340",
+                "claude": "#f59e0b",  # legacy
             }
             fig_trend = go.Figure()
             for eng in history_df["engine"].unique():
@@ -1479,7 +1482,7 @@ def page_ai_engine_visibility(run_date):
             fig_sov_comp.add_trace(go.Bar(
                 name=COMPANY_NAME, x=[e.title() for e in engines],
                 y=[brand_by_eng.get(e, 0) for e in engines],
-                marker_color="#3b82f6",
+                marker_color="#E09A3F",
             ))
             for comp in comp_list_sorted:
                 comp_by_eng = {}
@@ -1489,7 +1492,7 @@ def page_ai_engine_visibility(run_date):
                 fig_sov_comp.add_trace(go.Bar(
                     name=comp.split(".")[0].title(), x=[e.title() for e in engines],
                     y=[comp_by_eng.get(e, 0) for e in engines],
-                    marker_color="#94a3b8",
+                    marker_color="#DFD9CE",
                 ))
             fig_sov_comp.update_layout(
                 barmode="group", height=340, yaxis_title="Times mentioned",
@@ -1785,6 +1788,302 @@ def page_ai_engine_visibility(run_date):
             else:
                 st.info(f"No external citations found for the {_TOPIC_LABEL.get(selected_zero, selected_zero)} vertical.")
 
+    # ── Tab 6: Sponsored Ads ───────────────────────────────────────────────────
+    with tab6:
+        st.subheader("Sponsored Ad Intelligence")
+        st.caption(
+            "Domains appearing in Google paid ad slots for each probe query. "
+            "Amber = brand running its own ads · Red = competitor bidding on your keywords."
+        )
+
+        google_df = probes_df[probes_df["engine"] == "google"].copy()
+        if google_df.empty:
+            st.info("No Google AI Overview data for this run. Run with VALUESERP_KEY configured.")
+        else:
+            # Parse sponsored_domains JSON
+            def _parse_sponsored(val):
+                if val is None:
+                    return []
+                if isinstance(val, list):
+                    return val
+                try:
+                    parsed = json.loads(val)
+                    return parsed if isinstance(parsed, list) else []
+                except Exception:
+                    return []
+
+            google_df["_sponsored"] = google_df.get("sponsored_domains", pd.Series(dtype=object)).apply(_parse_sponsored)
+
+            # Flatten all sponsored domains
+            all_sponsored: dict[str, int] = {}
+            for domains in google_df["_sponsored"]:
+                for d in domains:
+                    d = d.lstrip("www.").split("/")[0].strip() if d else ""
+                    if d:
+                        all_sponsored[d] = all_sponsored.get(d, 0) + 1
+
+            if not all_sponsored:
+                st.info(
+                    "No sponsored ad domains captured yet. "
+                    "Ads don't appear on every query — run more probes to populate this view."
+                )
+            else:
+                comp_domains_lower = [c.lower() for c in COMPETITORS]
+
+                # Summary metrics
+                total_ad_events = sum(all_sponsored.values())
+                brand_ad_count = sum(v for k, v in all_sponsored.items() if BRAND_SLUG.lower() in k.lower())
+                comp_ad_count = sum(
+                    v for k, v in all_sponsored.items()
+                    if any(c in k.lower() for c in comp_domains_lower)
+                )
+
+                mc1, mc2, mc3 = st.columns(3)
+                mc1.metric("Total ad appearances", total_ad_events)
+                mc2.metric(f"{COMPANY_NAME} self-bids", brand_ad_count)
+                mc3.metric("Competitor bids on your terms", comp_ad_count)
+
+                # Bar chart of sponsored domain frequency
+                sp_rows = sorted(all_sponsored.items(), key=lambda x: -x[1])
+                sp_df = pd.DataFrame(sp_rows, columns=["Domain", "Ad appearances"])
+                sp_df["color"] = sp_df["Domain"].apply(
+                    lambda d: "#E09A3F" if BRAND_SLUG.lower() in d.lower() else
+                              "#ef4444" if any(c in d.lower() for c in comp_domains_lower) else "#4B5340"
+                )
+
+                fig_sp = go.Figure(go.Bar(
+                    x=sp_df["Ad appearances"],
+                    y=sp_df["Domain"],
+                    orientation="h",
+                    marker_color=sp_df["color"].tolist(),
+                    text=sp_df["Ad appearances"],
+                    textposition="outside",
+                    hovertemplate="<b>%{y}</b><br>Ad appearances: %{x}<extra></extra>",
+                ))
+                fig_sp.update_layout(
+                    height=max(300, len(sp_df) * 36),
+                    margin=dict(l=180, r=80, t=20, b=10),
+                    xaxis_title="Probe queries with this ad domain",
+                    yaxis=dict(autorange="reversed"),
+                    paper_bgcolor="#FBF9F4",
+                    plot_bgcolor="#FBF9F4",
+                )
+                st.plotly_chart(fig_sp, use_container_width=True)
+
+                # Probe-level table
+                st.divider()
+                st.subheader("Probes with Sponsored Ads")
+                sp_probe_rows = []
+                for _, row in google_df.iterrows():
+                    domains = row["_sponsored"]
+                    if not domains:
+                        continue
+                    sp_probe_rows.append({
+                        "Probe": row["probe_text"][:70],
+                        "Probe ID": row["probe_id"],
+                        "Ad domains": ", ".join(d.lstrip("www.") for d in domains),
+                        "Brand self-bid": any(BRAND_SLUG.lower() in d.lower() for d in domains),
+                        "Competitor bid": any(
+                            any(c in d.lower() for c in comp_domains_lower) for d in domains
+                        ),
+                    })
+                if sp_probe_rows:
+                    st.dataframe(pd.DataFrame(sp_probe_rows), use_container_width=True, hide_index=True)
+                else:
+                    st.info("No sponsored domains found in individual probe results.")
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# SEO Ranks page
+# ──────────────────────────────────────────────────────────────────────────────
+
+def page_seo_ranks(run_date):
+    st.title("SEO Ranks")
+    st.caption(
+        f"Organic search positions for **{COMPANY_NAME}** and top competitors — {run_date}. "
+        "Data sourced from ValueSERP organic results."
+    )
+
+    serp = load_serp_results(run_date)
+    if serp.empty:
+        st.warning("No SERP data for this run date.")
+        return
+
+    brand_serp = serp[serp["domain"] == BRAND_DOMAIN][["query", "position"]].sort_values("position")
+
+    m1, m2, m3, m4 = st.columns(4)
+    m1.metric("Queries tracked", serp["query"].nunique())
+    m2.metric(f"{BRAND_DOMAIN} ranking", len(brand_serp))
+    if not brand_serp.empty:
+        m3.metric("Best position", int(brand_serp["position"].min()))
+        m4.metric("Avg position", f"{brand_serp['position'].mean():.1f}")
+    else:
+        m3.metric("Best position", "—")
+        m4.metric("Avg position", "—")
+
+    st.divider()
+
+    # ── Brand position table ───────────────────────────────────────────────────
+    st.subheader(f"{BRAND_DOMAIN} SERP Positions")
+    if brand_serp.empty:
+        st.info(f"{BRAND_DOMAIN} does not appear in organic results for any tracked query this run.")
+    else:
+        st.dataframe(brand_serp.rename(columns={"query": "Query", "position": "Position"}),
+                     use_container_width=True, hide_index=True)
+
+    st.divider()
+
+    # ── Position heatmap: query × domain ──────────────────────────────────────
+    st.subheader("Position Heatmap")
+    st.caption("Position by query (0 = not ranking). Amber = brand, olive = competitor. Lower number = better.")
+
+    top_domains = serp.groupby("domain").size().sort_values(ascending=False).head(9).index.tolist()
+    if BRAND_DOMAIN not in top_domains:
+        top_domains = [BRAND_DOMAIN] + top_domains[:8]
+
+    pivot = (
+        serp[serp["domain"].isin(top_domains)]
+        .pivot_table(index="query", columns="domain", values="position", aggfunc="min")
+        .fillna(0)
+        .astype(int)
+    )
+    if BRAND_DOMAIN in pivot.columns:
+        cols = [BRAND_DOMAIN] + [c for c in pivot.columns if c != BRAND_DOMAIN]
+        pivot = pivot[cols]
+
+    short_queries = [q[:50] + "…" if len(q) > 50 else q for q in pivot.index]
+
+    fig_heat = go.Figure(go.Heatmap(
+        z=pivot.values,
+        x=pivot.columns.tolist(),
+        y=short_queries,
+        colorscale=[[0, "#FBF9F4"], [0.15, "#DFD9CE"], [0.5, "#E09A3F"], [1, "#362C24"]],
+        zmin=0, zmax=15,
+        text=[[str(v) if v > 0 else "—" for v in row] for row in pivot.values],
+        texttemplate="%{text}",
+        textfont={"size": 10},
+        hovertemplate="<b>%{y}</b><br>%{x}: position %{z}<extra></extra>",
+        reversescale=True,
+    ))
+    fig_heat.update_layout(
+        height=max(400, len(pivot) * 30),
+        margin=dict(l=320, r=40, t=20, b=80),
+        xaxis=dict(tickangle=-35),
+        yaxis=dict(autorange="reversed"),
+        paper_bgcolor="#FBF9F4",
+        plot_bgcolor="#FBF9F4",
+    )
+    st.plotly_chart(fig_heat, use_container_width=True)
+
+    st.divider()
+
+    # ── Keyword gap: queries where brand is absent ─────────────────────────────
+    st.subheader("Keyword Opportunities")
+    st.caption(f"Queries where {BRAND_DOMAIN} is not in organic results, sorted by competitor density")
+
+    brand_queries = set(serp[serp["domain"] == BRAND_DOMAIN]["query"])
+    gap_queries = set(serp["query"]) - brand_queries
+
+    if not gap_queries:
+        st.success(f"{BRAND_DOMAIN} appears in organic results for every tracked query.")
+    else:
+        gap_rows = []
+        for q in gap_queries:
+            q_df = serp[serp["query"] == q]
+            comp_domains = [d for d in q_df["domain"] if any(c.lower() in d.lower() for c in COMPETITORS)]
+            best_comp_pos = q_df["position"].min()
+            gap_rows.append({
+                "Query": q,
+                "Domains ranking": len(q_df),
+                "Competitor domains": ", ".join(comp_domains[:3]) or "none",
+                "Best competing position": int(best_comp_pos),
+            })
+        gap_rows.sort(key=lambda r: -r["Domains ranking"])
+        st.dataframe(pd.DataFrame(gap_rows), use_container_width=True, hide_index=True)
+
+    st.divider()
+
+    # ── Domain frequency bar chart ─────────────────────────────────────────────
+    st.subheader("Most Frequent SERP Domains")
+    st.caption("Amber = brand · Red = competitor · Olive = other. Number = appearances across all tracked queries.")
+
+    domain_freq = (
+        serp.groupby("domain")
+        .agg(appearances=("query", "count"), best_position=("position", "min"))
+        .sort_values("appearances", ascending=False)
+        .head(20)
+        .reset_index()
+    )
+    domain_freq["color"] = domain_freq["domain"].apply(
+        lambda d: "#E09A3F" if d == BRAND_DOMAIN else
+                  "#ef4444" if any(c.lower() in d.lower() for c in COMPETITORS) else "#4B5340"
+    )
+
+    fig_freq = go.Figure(go.Bar(
+        x=domain_freq["appearances"],
+        y=domain_freq["domain"],
+        orientation="h",
+        marker_color=domain_freq["color"].tolist(),
+        text=domain_freq["appearances"],
+        textposition="outside",
+        customdata=domain_freq["best_position"],
+        hovertemplate="<b>%{y}</b><br>Appearances: %{x}<br>Best position: %{customdata}<extra></extra>",
+    ))
+    fig_freq.update_layout(
+        height=520,
+        margin=dict(l=200, r=80, t=20, b=10),
+        xaxis_title="Query appearances",
+        yaxis=dict(autorange="reversed"),
+        paper_bgcolor="#FBF9F4",
+        plot_bgcolor="#FBF9F4",
+    )
+    st.plotly_chart(fig_freq, use_container_width=True)
+
+
+# ──────────────────────────────────────────────────────────────────────────────
+# Ambrook CSS
+# ──────────────────────────────────────────────────────────────────────────────
+
+def _ambrook_css() -> str:
+    return """
+<style>
+/* ── Ambrook Heartland Design System ── */
+[data-testid="stAppViewContainer"] { background: #FBF9F4; }
+[data-testid="stHeader"] { background: transparent; }
+[data-testid="stSidebar"] { background: #4B5340 !important; }
+[data-testid="stSidebar"] > div:first-child { background: #4B5340 !important; }
+[data-testid="stSidebar"] * { color: #FBF9F4 !important; }
+[data-testid="stSidebar"] .stSelectbox select { color: #1A1C19 !important; }
+[data-testid="stSidebar"] hr { border-color: rgba(251,249,244,0.25) !important; }
+[data-testid="stSidebar"] small,
+[data-testid="stSidebar"] .stCaption p { color: #DFD9CE !important; }
+h1, h2, h3 { color: #1A1C19; font-weight: 500; letter-spacing: 0.03em; }
+h4, h5, h6 { color: #362C24; font-weight: 500; letter-spacing: 0.02em; }
+[data-testid="stMetricLabel"] {
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    font-size: 11px !important;
+    color: #362C24 !important;
+}
+[data-testid="stMetricValue"] { font-size: 1.4rem !important; color: #1A1C19 !important; }
+.stTabs [data-baseweb="tab-list"] { background: #FBF9F4; border-bottom: 1px solid #DFD9CE; }
+.stTabs [data-baseweb="tab"][aria-selected="true"] {
+    border-bottom: 3px solid #E09A3F !important;
+    color: #1A1C19 !important;
+    font-weight: 600;
+}
+.stTabs [data-baseweb="tab"] { color: #362C24; }
+.stExpander { border: 1px solid #DFD9CE !important; border-radius: 6px; }
+[data-testid="stDataFrame"] thead tr th { background: #DFD9CE !important; color: #1A1C19 !important; }
+[data-testid="stDataFrame"] { border: 1px solid #DFD9CE; border-radius: 4px; }
+.stButton > button {
+    background: #E09A3F !important; color: #1A1C19 !important;
+    border: none; font-weight: 600; border-radius: 4px;
+}
+.stButton > button:hover { background: #c88835 !important; }
+</style>
+"""
+
 
 # ──────────────────────────────────────────────────────────────────────────────
 # Report generator
@@ -1942,12 +2241,7 @@ def main():
         initial_sidebar_state="expanded",
     )
 
-    st.markdown("""
-    <style>
-    [data-testid="stMetricValue"] { font-size: 1.4rem; }
-    .stExpander { border: 1px solid #e2e8f0; border-radius: 6px; }
-    </style>
-    """, unsafe_allow_html=True)
+    st.markdown(_ambrook_css(), unsafe_allow_html=True)
 
     run_dates = load_run_dates()
     if not run_dates:
@@ -1956,8 +2250,8 @@ def main():
         return
 
     with st.sidebar:
-        st.markdown("## 📡 AEO Monitor")
-        st.caption(f"{COMPANY_NAME} citation & visibility tracker")
+        st.markdown(f"## AEO Monitor")
+        st.caption(f"{COMPANY_NAME} — AI citation & SEO visibility")
         st.divider()
 
         run_date = st.selectbox(
@@ -1969,7 +2263,7 @@ def main():
         page = st.radio(
             "View",
             ["Overview", "Placement Targets", "Query Universe", "AE Citations",
-             "SERP Analysis", "Weekly Diff", "🔍 Elmo"],
+             "SERP Analysis", "SEO Ranks", "Weekly Diff", "🔍 Elmo"],
             label_visibility="collapsed",
         )
 
@@ -2002,6 +2296,8 @@ def main():
         page_ae_citations(run_date)
     elif page == "SERP Analysis":
         page_serp(run_date)
+    elif page == "SEO Ranks":
+        page_seo_ranks(run_date)
     elif page == "Weekly Diff":
         page_weekly_diff()
     elif page == "🔍 Elmo":
