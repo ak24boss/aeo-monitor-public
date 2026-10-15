@@ -17,6 +17,24 @@ import yaml
 
 import os
 
+# ── Ambrook chart theme ──────────────────────────────────────────────────────
+# Wrap st.plotly_chart so every figure gets dark axis labels automatically.
+_TICK_FONT = {"color": "#362C24", "size": 12}
+_TITLE_FONT_AX = {"color": "#1A1C19"}
+_st_plotly_chart = st.plotly_chart
+
+def _plotly_chart(fig, **kw):
+    fig.update_xaxes(tickfont=_TICK_FONT, title_font=_TITLE_FONT_AX, tickcolor="#362C24")
+    fig.update_yaxes(tickfont=_TICK_FONT, title_font=_TITLE_FONT_AX, tickcolor="#362C24")
+    fig.update_layout(
+        font_color="#1A1C19",
+        legend_font_color="#362C24",
+    )
+    _st_plotly_chart(fig, **kw)
+
+st.plotly_chart = _plotly_chart
+# ─────────────────────────────────────────────────────────────────────────────
+
 ROOT = Path(__file__).parent
 
 # Company-aware path resolution:

@@ -2,6 +2,8 @@ venv/
 cache/
 out/
 *.db
+# keep the Ambrook demo database
+!companies/ambrook/data.db
 .env
 company.yaml
 __pycache__/
